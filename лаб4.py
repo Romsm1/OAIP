@@ -51,5 +51,38 @@ def main():
                 count += 1
     print(count)
 
+# Задание 7
+    word = input("Слово: ")
+    n = int(input("Натуральное число n: "))
+    for i in range(1, n + 1):
+        print(word)
+
+# Задание 8
+    number = input("Введите номер телефона:")
+    for char in number:
+        if char not in "0123456789+":
+            print("Неправильный номер телефона!")
+            break
+    else:
+        print("Правильный номер телефона")
+
+# Задание 9
+    password = input("Введите пароль: ")
+    bukvi = "ЙйЦцКкНнГгШшЩщЗзХхЪъФфВвПпРрЛлДдЖжЭэЧчСсМмТтЬьБб"
+    secret_pass = " "
+
+    for char in password:
+        if char in bukvi:
+            secret_pass += '1'
+        else:
+            secret_pass += '0'
+
+    print(secret_pass)
+
+# Задание 10
+    a = 'ППррииввеетт!!  ККаакк  ддееллаа??  ССееггоодднняя  ттааккааяя  ххоорроошшааяя  ппооггооддаа,,  ммоожжеетт  ппооггуулляяеемм??'
+    correct = ''.join(a[i] for i in range(len(a)) if i == 0 or a[i] != a[i - 1])
+    print(correct)
+
 if __name__ == '__main__':
     main()
