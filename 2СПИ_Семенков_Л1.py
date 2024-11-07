@@ -38,7 +38,7 @@ def main():
     number_100 = rem_amount // 100
     rem_amount %= 100
 
-    number_10 =rem_amount // 10
+    number_10 = rem_amount // 10
     number_1 = rem_amount % 10
 
     print(f"{number_1} по 1р")
