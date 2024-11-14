@@ -36,10 +36,11 @@ def main():
     july_city = input("Введите название города для июля: ")
     august_city = input("Введите название города для августа: ")
 
-    if (july_city == "Тула" and august_city == "Пенза"):
+    if (july_city == "Тула" and august_city == "Пенза") or (july_city =="Тула" and august_city == "Тула") or (july_city == "Пенза" and august_city == "Пенза"):
         print("НЕТ")
     else:
         print("ДА")
+
 
 # задание 5
 
