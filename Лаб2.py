@@ -36,7 +36,7 @@ def main():
     july_city = input("Введите название города для июля: ")
     august_city = input("Введите название города для августа: ")
 
-    if (july_city == "Тула" and august_city == "Пенза") or (july_city =="Тула" and august_city == "Тула") or (july_city == "Пенза" and august_city == "Пенза"):
+    if (july_city == "Тула" and august_city == "Пенза") or (july_city == "Пенза" and august_city == "Тула") or (july_city =="Тула" and august_city == "Тула") or (july_city == "Пенза" and august_city == "Пенза"):
         print("НЕТ")
     else:
         print("ДА")
@@ -101,15 +101,17 @@ def main():
 
 # Задание 9
 
-    buyers_pozavchera = int(input("Введите количество покупателей за позавчера: "))
     buyers_vchera = int(input("Введите количество покупателей за вчера: "))
+    buyers_pozavchera = int(input("Введите количество покупателей за позавчера: "))
 
     if buyers_vchera > buyers_pozavchera:
         raznica = buyers_vchera - buyers_pozavchera
         buyers_segodnya = buyers_vchera + raznica
-    else:
+    elif buyers_vchera < buyers_pozavchera:
         raznica = buyers_pozavchera - buyers_vchera
         buyers_segodnya = buyers_vchera - raznica
+    else:
+        buyers_segodnya = buyers_vchera  
 
     print(f"Количество покупателей сегодня: {buyers_segodnya}")
 
