@@ -82,6 +82,88 @@ def main():
     print(f"Cумма простых числе: {summa}")
 
 # задание 7
+x = int(input("Ширина большой коробки: "))
+y = int(input("Длина большой коробки: "))
+z = int(input("Высота большой коробки: "))
+
+b_box = x * y * z
+
+s_boxes = 0
+
+n = int(input("Введите количество маленьких коробок: "))
+
+for i in range(n):
+    a = int(input("Ширина маленькой коробки: "))
+    b = int(input("Длина маленькой коробки: "))
+    c = int(input("Высота маленькой коробки: "))
+    
+    s_box = a * b * c  
+    s_boxes += s_box   
+    
+if s_boxes <= b_box:
+    print("Да")
+else:
+    print("Нет")
+
+# задание 8
+min_word = input()
+
+while True:
+    word = input()
+
+    if word == "стоп":
+        break
+   
+    if len(word) < len(min_word):
+        min_word = word
+
+print(min_word)
+
+# задание 9
+result = float(input("Введите число: "))
+
+while True:
+    operation = input("Введите операцию (+, -, *, /) или 'стоп' для завершения: ")
+
+    if operation == "стоп":
+        break
+    
+    next_number = float(input("Введите следующее число: "))
+    
+    if operation == "+":
+        result += next_number
+    elif operation == "-":
+        result -= next_number
+    elif operation == "*":
+        result *= next_number
+    elif operation == "/":
+        if next_number != 0: 
+            result /= next_number
+
+print("Результат работы: ", result)
+
+# задание 10
+sentences = []
+current_sentence = ""
+
+while True:
+    word = input()
+    
+    if word == "стоп":
+        break
+    
+    current_sentence += word + " "
+    
+    if word == "!":
+        sentences.append(current_sentence.strip())
+        current_sentence = ""
+
+if current_sentence:
+    sentences.append(current_sentence.strip())
+
+for sentence in sentences:
+    print(sentence)
+
 
 if __name__ == "__main__":
     main()
