@@ -145,7 +145,8 @@ print("Результат работы: ", result)
 # задание 10
 sentences = []
 current_sentence = ""
-
+#append() добавляет в конец списка элемент переданный ему в качестве аргумента
+#strip() убирает пробелы в строке
 while True:
     word = input()
     
