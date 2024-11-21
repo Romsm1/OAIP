@@ -1,10 +1,9 @@
 # задание 1
 def main():
-    while True:
-        abc = input("Введите строку: ")
-        if abc == " ":
-            break
+    abc = input("Введите строку: ")
+    while abc != " ":
         print(f"Длина строки: {len(abc)}")
+        abc = input("Введите строку: ")
 
     # задание 2
 
@@ -106,16 +105,12 @@ else:
 
 # задание 8
 min_word = input()
-
 while True:
     word = input()
-
     if word == "стоп":
         break
-   
     if len(word) < len(min_word):
         min_word = word
-
 print(min_word)
 
 # задание 9
@@ -123,12 +118,9 @@ result = float(input("Введите число: "))
 
 while True:
     operation = input("Введите операцию (+, -, *, /) или 'стоп' для завершения: ")
-
     if operation == "стоп":
         break
-    
     next_number = float(input("Введите следующее число: "))
-    
     if operation == "+":
         result += next_number
     elif operation == "-":
