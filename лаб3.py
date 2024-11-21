@@ -7,7 +7,7 @@ def main():
 
     # задание 2
 
-        negative_numbers = 0
+    negative_numbers = 0
     while (number := float(input())) < 36.6:
         if number < 0:
             negative_numbers += 1
