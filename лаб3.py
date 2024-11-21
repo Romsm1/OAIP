@@ -7,16 +7,11 @@ def main():
 
     # задание 2
 
-    negative_numbers = 0
-
-    while True:
-        number = float(input("Введите число: "))
-        if number > 36.6:
-            break
+        negative_numbers = 0
+    while (number := float(input())) < 36.6:
         if number < 0:
             negative_numbers += 1
-
-        print(negative_numbers)
+    print(negative_numbers)
 
     # задание 3
 
