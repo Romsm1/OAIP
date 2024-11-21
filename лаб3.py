@@ -36,8 +36,7 @@ def main():
 
     # задание 4
 
-    numbers = input(
-        "Введите числа через пробел: ").split()  # .split нужен для того чтобы считать строку и разбить ее на отдельные элементы
+    numbers = input("Введите числа через пробел: ").split()  # .split нужен для того чтобы считать строку и разбить ее на отдельные элементы
     min_number = float(numbers[0])
 
     for number in numbers:
@@ -149,22 +148,13 @@ current_sentence = ""
 #strip() убирает пробелы в строке
 while True:
     word = input()
-    
     if word == "стоп":
         break
-    
-    current_sentence += word + " "
-    
-    if word == "!":
-        sentences.append(current_sentence.strip())
-        current_sentence = ""
-
-if current_sentence:
+    current_sentence += word
     sentences.append(current_sentence.strip())
-
-for sentence in sentences:
-    print(sentence)
-
+    current_sentence = ""
+print(*sentences, sep="\n")
+    
 
 if __name__ == "__main__":
     main()
