@@ -30,14 +30,16 @@ def main():
 
     # задание 4
 
-    numbers = input("Введите числа через пробел: ").split()  # .split нужен для того чтобы считать строку и разбить ее на отдельные элементы
+    numbers = input("Введите числа через пробел: ").split()  # split нужен для того чтобы считать строку и разбить ее на отдельные элементы
     min_number = float(numbers[0])
+    i = 1
 
-    for number in numbers:
-        if float(number) < min_number:
-            min_number = float(number)
+    while i < len(numbers):
+        if float(numbers[i]) < min_number:
+            min_number = float(numbers[i])
+        i += 1
+
     print(f"Наименьшее число = {min_number}")
-
 
 # задание 5
 
@@ -61,86 +63,92 @@ def main():
 # задание 6
 
     summa = 0
-    for a in range(1, 10001):
-        celoe_number = True
-        if a < 2:
-            celoe_number = False
-        else:
-            for i in range(2, int(a**0.5) + 1):
-                if a % i == 0:
-                    celoe_number = False
-                    break
-        if celoe_number:
+    a = 1
+
+    while a <= 10000:
+            celoe_number = True
+            if a < 2:
+                celoe_number = False
+            else:
+                i = 2
+                while i <= int(a**0.5):
+                    if a % i == 0:
+                        celoe_number = False
+                        break
+                    i += 1
+            if celoe_number:
             summa += a
-    print(f"Cумма простых числе: {summa}")
+            a += 1
+
+    print(f"Сумма простых чисел: {summa}")
 
 # задание 7
-x = int(input("Ширина большой коробки: "))
-y = int(input("Длина большой коробки: "))
-z = int(input("Высота большой коробки: "))
+    x = int(input("Ширина большой коробки: "))
+    y = int(input("Длина большой коробки: "))
+    z = int(input("Высота большой коробки: "))
 
-b_box = x * y * z
+    b_box = x * y * z
+    s_boxes = 0
+    n = int(input("Введите количество маленьких коробок: "))
+    i = 0  # отслеживание кол-ва введенных коробок
 
-s_boxes = 0
+    while i < n:
+        a = int(input("Ширина маленькой коробки: "))
+        b = int(input("Длина маленькой коробки: "))
+        c = int(input("Высота маленькой коробки: "))
 
-n = int(input("Введите количество маленьких коробок: "))
+        s_box = a * b * c
+        s_boxes += s_box
+        i += 1
 
-for i in range(n):
-    a = int(input("Ширина маленькой коробки: "))
-    b = int(input("Длина маленькой коробки: "))
-    c = int(input("Высота маленькой коробки: "))
-    
-    s_box = a * b * c  
-    s_boxes += s_box   
-    
-if s_boxes <= b_box:
-    print("Да")
-else:
-    print("Нет")
+    if s_boxes <= b_box:
+        print("Да")
+    else:
+        print("Нет")
+
 
 # задание 8
-min_word = input()
-while True:
-    word = input()
-    if word == "стоп":
-        break
-    if len(word) < len(min_word):
-        min_word = word
-print(min_word)
+    min_word = input("Введите первое слово: ")
+    word = input("Введите следующее слово (или 'стоп' для завершения): ")
+
+    while word != "стоп":
+        if len(word) < len(min_word):  
+            min_word = word  
+        word = input("Введите следующее слово (или 'стоп' для завершения): ")
+
+    print(f"Самое короткое слово: {min_word}")
+
 
 # задание 9
-result = float(input("Введите число: "))
-
-while True:
+    result = float(input("Введите число: "))
     operation = input("Введите операцию (+, -, *, /) или 'стоп' для завершения: ")
-    if operation == "стоп":
-        break
-    next_number = float(input("Введите следующее число: "))
-    if operation == "+":
-        result += next_number
-    elif operation == "-":
-        result -= next_number
-    elif operation == "*":
-        result *= next_number
-    elif operation == "/":
-        if next_number != 0: 
-            result /= next_number
 
-print("Результат работы: ", result)
+    while operation != "стоп":
+        next_number = float(input("Введите следующее число: "))
+        if operation == "+":
+            result += next_number
+        elif operation == "-":
+            result -= next_number
+        elif operation == "*":
+            result *= next_number
+        elif operation == "/":
+            result /= next_number  
+
+        operation = input("Введите операцию (+, -, *, /) или 'стоп' для завершения: ")
+
+    print("Результат работы: ", result)
 
 # задание 10
-sentences = []
-current_sentence = ""
-#append() добавляет в конец списка элемент переданный ему в качестве аргумента
-#strip() убирает пробелы в строке
-while True:
-    word = input()
-    if word == "стоп":
-        break
-    current_sentence += word
-    sentences.append(current_sentence.strip())
-    current_sentence = ""
-print(*sentences, sep="\n")
+    sentence = ""  
+    word = input()  
+    while word != "стоп":  
+        if sentence:  
+            sentence += " "
+        sentence += word  
+        word = input() 
+    if sentence:  
+        print(sentence)
+
     
 
 if __name__ == "__main__":
