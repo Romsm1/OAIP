@@ -15,7 +15,7 @@ def main():
 
     # задание 3
 
-      num1_max = num2_max = float(input("Введите число: "))
+    num1_max = num2_max = float(input("Введите число: "))
     while (number := float(input("Введите число: "))) < 1000:
         if number > num1_max:
             num2_max = num1_max
