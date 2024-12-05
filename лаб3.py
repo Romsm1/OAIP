@@ -1,7 +1,7 @@
 # задание 1
 def main():
     abc = input("Введите строку: ")
-    while abc != " ":
+    while abc != "":
         print(f"Длина строки: {len(abc)}")
         abc = input("Введите строку: ")
 
@@ -23,10 +23,10 @@ def main():
         elif number > num2_max and number != num1_max:
             num2_max = number
 
-    print(f"Второй максимум = {num2_max}"
+    print(f"Второй максимум = {num2_max}")
           
     # задание 4
-    numbers = input("Введите числа через пробел: ").split()  # split нужен для того чтобы считать строку и разбить ее на отдельные элементы
+    numbers = input("Введите числа через пробел: ").split()
     min_number = float(numbers[0])
     i = 1
 
