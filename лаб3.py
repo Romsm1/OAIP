@@ -15,21 +15,17 @@ def main():
 
     # задание 3
 
-    num1_max = num2_max = float(input("Введите число: "))
-    while True:
-        number = float(input("Введите число: "))
-        if number >= 1000:
-            break
+      num1_max = num2_max = float(input("Введите число: "))
+    while (number := float(input("Введите число: "))) < 1000:
         if number > num1_max:
             num2_max = num1_max
             num1_max = number
         elif number > num2_max and number != num1_max:
             num2_max = number
 
-        print(f"Второй максимум = {num2_max}")
-
+    print(f"Второй максимум = {num2_max}"
+          
     # задание 4
-
     numbers = input("Введите числа через пробел: ").split()  # split нужен для того чтобы считать строку и разбить ее на отдельные элементы
     min_number = float(numbers[0])
     i = 1
