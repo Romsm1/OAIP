@@ -69,7 +69,7 @@ def main():
 # Задание 9
     password = input("Введите пароль: ")
     bukvi = "ЙйЦцКкНнГгШшЩщЗзХхЪъФфВвПпРрЛлДдЖжЭэЧчСсМмТтЬьБб"
-    secret_pass = " "
+    secret_pass = ""
 
     for letter in password:
         if letter in bukvi:
