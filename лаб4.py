@@ -43,19 +43,18 @@ def main():
 
 # задание 6
     vowels = "аяоёэеуюыи"
-phrase = input("Введите фразу: ")
-count = 0
-words = phrase.split()
+    count = 0
+    line = input("Введите строку: ").split()
 
-for word in words:
-    vowel_count = 0
-    for char in word:
-        if char in vowels:
-            vowel_count += 1
-    if vowel_count > 0:
-        count += vowel_count - 1
+    for word in line:
+        vowel_count = 0
+        for char in word:
+            if char in vowels:
+                vowel_count += 1
+        if vowel_count > 0:
+            count += vowel_count - 1
 
-print(count)
+    print(count)
 
 
 # Задание 7
