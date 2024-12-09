@@ -1,4 +1,4 @@
-# задание 1
+7# задание 1
 def main():
     number = " "
     for _ in range(8):
@@ -42,14 +42,21 @@ def main():
     print(f"Сумма делителей = {a}")
 
 # задание 6
-    line = input("введите строку: ").split()
-    vowel = "аяоёэеуюыи" # гласные
-    count = 0
-    for word in line:
-        for letter in word:
-            if letter in vowel:
-                count += 1
-    print(count)
+    vowels = "аяоёэеуюыи"
+phrase = input("Введите фразу: ")
+count = 0
+words = phrase.split()
+
+for word in words:
+    vowel_count = 0
+    for char in word:
+        if char in vowels:
+            vowel_count += 1
+    if vowel_count > 0:
+        count += vowel_count - 1
+
+print(count)
+
 
 # Задание 7
     word = input("Слово: ")
