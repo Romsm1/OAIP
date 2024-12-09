@@ -59,8 +59,8 @@ def main():
 
 # Задание 8
     number = input("Введите номер телефона:")
-    for char in number:
-        if char not in "0123456789+":
+    for num in number:
+        if num not in "0123456789+":
             print("Неправильный номер телефона!")
             break
     else:
@@ -71,8 +71,8 @@ def main():
     bukvi = "ЙйЦцКкНнГгШшЩщЗзХхЪъФфВвПпРрЛлДдЖжЭэЧчСсМмТтЬьБб"
     secret_pass = " "
 
-    for char in password:
-        if char in bukvi:
+    for letter in password:
+        if letter in bukvi:
             secret_pass += '1'
         else:
             secret_pass += '0'
