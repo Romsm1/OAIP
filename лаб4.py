@@ -48,8 +48,8 @@ def main():
 
     for word in line:
         vowel_count = 0
-        for char in word:
-            if char in vowels:
+        for letter in word:
+            if letter in vowels:
                 vowel_count += 1
         if vowel_count > 0:
             count += vowel_count - 1
