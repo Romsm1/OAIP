@@ -1,131 +1,89 @@
 # Задание 1
 def main():
-try:
-    # Запрос ввода двух чисел
-    num1 = int(input("Введите первое целое число: "))
-    num2 = int(input("Введите второе целое число: "))
+# Задание 1
+    try:
+        num1 = int(input("Введите первое целое число: "))
+        num2 = int(input("Введите второе целое число: "))
+        result = num1 + num2
+        print(f"Результат сложения: {result}")
     
-    # Сложение чисел
-    result = num1 + num2
-    
-    # Вывод результата
-    print(f"Результат сложения: {result}")
-    
-except ValueError:
-    # Обработка ошибки, если введены не целые числа
-    print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
+    except ValueError:
+    # Обработка ошибки  если введены не    целые числа
+        print("Ошибка: введены не целые числа. ")
 
 # Задание 2
-while True:
-    try:
-        # Запрос ввода двух чисел
-        num1 = int(input("Введите первое целое число: "))
-        num2 = int(input("Введите второе целое число: "))
+    while True:
+        try:
+            num1 = int(input("Введите первое целое число: "))
+            num2 = int(input("Введите второе целое число: "))
         
-        # Сложение чисел
-        result = num1 + num2
+            result = num1 + num2
+            print(f"Результат сложения: {result}")
+            break
         
-        # Вывод результата
-        print(f"Результат сложения: {result}")
-        
-        # Выход из цикла, так как оба числа введены корректно
-        break
-    except ValueError:
-        # Обработка ошибки, если введены не целые числа
-        print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
+         except ValueError:
+            print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
 
 # Задание 3
-
-while True:
-    try:
-        # Запрос ввода двух чисел
-        num1 = int(input("Введите первое целое число: "))
-        num2 = int(input("Введите второе целое число: "))
+    while True:
+        try:
+            num1 = int(input("Введите первое целое число: "))
+            num2 = int(input("Введите второе целое число: "))
         
-        # Проверка на деление на 0
-        if num2 == 0:
-            raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
+            if num2 == 0:
+                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
         
-        # Деление чисел
-        result = num1 / num2
+            result = num1 / num2
+            print(f"Результат деления: {result}")
         
-        # Вывод результата
-        print(f"Результат деления: {result}")
-        
-        # Выход из цикла, так как оба числа введены корректно
-        break
-    except ValueError:
-        # Обработка ошибки, если введены не целые числа
-        print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
-    except ZeroDivisionError as e:
+            break
+        except ValueError:
+            print("Ошибка: введены нецелые числа.")
+        except ZeroDivisionError as a:
         # Обработка ошибки деления на 0
-        print(e)
-
-
+            print(a)
 # Задание 4
-
-
-while True:
-    try:
-        # Запрос ввода двух чисел
-        num1 = int(input("Введите первое целое число: "))
-        num2 = int(input("Введите второе целое число: "))
+    while True:
+        try:
+            num1 = int(input("Введите первое целое число: "))
+            num2 = int(input("Введите второе целое число: "))
         
-        # Сложение чисел
-        sum_result = num1 + num2
-        print(f"Результат сложения: {sum_result}")
+            sum_result = num1 + num2
+            print(f"Результат сложения: {sum_result}")
         
-        # Проверка на деление на 0
-        if num2 == 0:
-            raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
+            if num2 == 0:
+                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
         
-        # Деление чисел
-        div_result = num1 / num2
-        print(f"Результат деления: {div_result}")
+            div_result = num1 / num2
+            print(f"Результат деления: {div_result}")
         
-        # Выход из цикла, так как оба числа введены корректно
-        break
-    except ValueError:
-        # Обработка ошибки, если введены не целые числа
-        print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
-    except ZeroDivisionError as e:
-        # Обработка ошибки деления на 0
-        print(e)
-
+            break
+        except ValueError:
+            print("Ошибка: введены нецелые числа. ")
+        except ZeroDivisionError as a:
+            print(a)
 # Задание 5
-while True:
-    try:
-        # Запрос ввода двух чисел
-        num1 = int(input("Введите первое целое число: "))
-        num2 = int(input("Введите второе целое число: "))
+    while True:
+        try:
+            num1 = int(input("Введите первое целое число: "))
+            num2 = int(input("Введите второе целое число: "))
+       
+            sum_result = num1 + num2
+            print(f"Результат сложения: {sum_result}")
         
-        # Сложение чисел
-        sum_result = num1 + num2
-        print(f"Результат сложения: {sum_result}")
+            if num2 == 0:
+                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
         
-        # Проверка на деление на 0
-        if num2 == 0:
-            raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
+            div_result = num1 / num2
+            print(f"Результат деления: {div_result}")
         
-        # Деление чисел
-        div_result = num1 / num2
-        print(f"Результат деления: {div_result}")
+            break
+        except ValueError:
+            print("Ошибка: введены нецелые числа.")
+        except ZeroDivisionError as e:
+            print(e)
         
-        # Выход из цикла, так как оба числа введены корректно
-        break
-    except ValueError:
-        # Обработка ошибки, если введены не целые числа
-        print("Ошибка: введены нецелые числа. Пожалуйста, введите целые числа.")
-    except ZeroDivisionError as e:
-        # Обработка ошибки деления на 0
-        print(e)
-
-# Вывод сообщения о завершении программы
-print("Выход из программы")
-
-
-
-
+    print("Выход из программы")
 
 
 if __name__ == '__main__':
