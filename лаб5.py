@@ -20,9 +20,9 @@ def main():
 
     letters = (set1 & set2) | (set1 & set3) | (set2 & set3)
 
-    result = ''.join(letters)
+    result = ''.join(letters) 
     print(result)
-
+# join объединение элементов последовательности в одну строку с заданным разделителем в ()
     # задание 3
     digit = input("Введите число: ")
     all_digits = set('0123456789')
@@ -66,7 +66,7 @@ def main():
 
     print(f"Цвета флагов идущих в гирлянде: {garland}")
     print(" ".join(garland))
-# join объединение элементов последовательности в одну строку с заданным разделителем в ()
+    
     # задание 6
         age = input("Введите возраст находок: ")
 
