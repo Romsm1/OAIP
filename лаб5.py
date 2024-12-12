@@ -39,7 +39,7 @@ def main():
     while num != 0:
         num = int(input("Введите число (0 для завершения ввода): "))
         if num != 0:
-            numbers.append(num)
+            numbers.append(num) # append добавляет элемент в конец списка
 
     length = len(numbers)
     result = []
