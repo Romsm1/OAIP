@@ -27,11 +27,7 @@ def main():
     while True:
         try:
             num1 = int(input("Введите первое целое число: "))
-            num2 = int(input("Введите второе целое число: "))
-        
-            if num2 == 0:
-                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
-        
+            num2 = int(input("Введите второе целое число: "))     
             result = num1 / num2
             print(f"Результат деления: {result}")
         
@@ -49,10 +45,6 @@ def main():
         
             sum_result = num1 + num2
             print(f"Результат сложения: {sum_result}")
-        
-            if num2 == 0:
-                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.") # raise оператор который вызывает генерацию исключений
-        
             div_result = num1 / num2
             print(f"Результат деления: {div_result}")
         
@@ -68,10 +60,6 @@ def main():
             num2 = int(input("Введите второе целое число: "))
        
             sum_result = num1 + num2
-            print(f"Результат сложения: {sum_result}")
-        
-            if num2 == 0:
-                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
         
             div_result = num1 / num2
             print(f"Результат деления: {div_result}")
@@ -81,8 +69,8 @@ def main():
             print("Ошибка: введены нецелые числа.")
         except ZeroDivisionError as e:
             print(e)
-        
-    print("Выход из программы")
+        finally:
+            print("Выход из программы")
 
 
 if __name__ == '__main__':
