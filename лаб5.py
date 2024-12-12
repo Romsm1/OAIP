@@ -68,21 +68,18 @@ def main():
     print(" ".join(garland))
     
     # задание 6
-        age = input("Введите возраст находок: ")
-
-    while age != '':
-        age = int(age)
-        if age >= 4500:
-            print(f"{age} тысяч лет - Archaea")
-        elif 2500 <= age < 4500:
-            print(f"{age} тысяч лет - Proterozoic")
-        elif 541 <= age < 2500:
-            print(f"{age} тысяч лет - Paleozoic")
-        elif 252 <= age < 541:
-            print(f"{age} тысяч лет - Mesozoic")
-        elif age < 252:
-            print(f"{age} тысяч лет - Cenozoic")
-        age = input("Введите возраст находок (Enter для завершения): ")
+    season, era = {
+        "Proterozoic": range(635 * 10 ** 6, 2800 * 10 ** 6),
+        "Cenozoic": range(0, 145 * 10 ** 6),
+        "Mesozoic": range(145 * 10 ** 6, 300 * 10 ** 6),
+        "Paleozoic": range(300 * 10 ** 6, 635 * 10 ** 6)
+        }, []
+    while True:
+        x = input()
+        if not x:
+            break
+        era.append(next((key for key, value in season.items() if int(x) * 1000 in value), "Archaea"))
+    print('\n'.join(era))
 
     # задание 7
     bird_counts = {}
