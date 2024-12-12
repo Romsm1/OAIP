@@ -51,7 +51,7 @@ def main():
             print(f"Результат сложения: {sum_result}")
         
             if num2 == 0:
-                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.")
+                raise ZeroDivisionError("Ошибка: деление на ноль невозможно.") # raise оператор который вызывает генерацию исключений
         
             div_result = num1 / num2
             print(f"Результат деления: {div_result}")
