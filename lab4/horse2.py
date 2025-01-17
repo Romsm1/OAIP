@@ -12,6 +12,6 @@ def horse2(a: str):
 
     result = []
     for (a, b) in xy:
-        if (a >= 0) and (b >= 0) and (a <= 8) and (b <= 8):
+        if (a >= 0) and (b >= 0) and (a < 8) and (b < 8):
             result += [f'{all_columns[a]}{all_lines[b]}']
     print(*sorted(result), sep='\n')
