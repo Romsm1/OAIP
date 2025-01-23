@@ -1,8 +1,7 @@
-def gears(data, n, m):
-    for gear_list1 in data:
-        for gear_list2 in data:
-            for gear1 in gear_list1:
-                for gear2 in gear_list2:
-                    if gear1 * m == gear2 * n:
-                        return gear1, gear2
+def gears(gears_list, n, m):
+    all_gears = [gear for sublist in gears_list for gear in sublist]
+    for gear1 in all_gears:
+        for gear2 in all_gears:
+            if gear1 / gear2 == n / m:
+                return gear1, gear2
     return None, None
