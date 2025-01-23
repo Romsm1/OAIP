@@ -1,6 +1,20 @@
-def gears(gear_list, n, m):
-    for i in range(len(gear_list)):
-        for j in range(i + 1, len(gear_list)):
-            if gear_list[i] * m == gear_list[j] * n:
-                return (gear_list[i], gear_list[j])
+def gears(rack: list, n: int, m: int):
+    gear_dict_n = {}
+    gear_dict_m = {}
+    
+    for box in rack:
+        for gear in box:
+            if gear > 0:
+                if gear % n == 0:
+                    ratio_n = gear // n
+                    if ratio_n in gear_dict_m:
+                        return (gear, gear_dict_m[ratio_n])
+                    gear_dict_n[ratio_n] = gear
+                
+                if gear % m == 0:
+                    ratio_m = gear // m
+                    if ratio_m in gear_dict_n:
+                        return (gear_dict_n[ratio_m], gear)
+                    gear_dict_m[ratio_m] = gear
+
     return (None, None)
