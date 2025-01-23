@@ -1,14 +1,6 @@
-def brackets(line):
-    stack = []
-    brackets_map = {")": "(", "]": "[", "}": "{", ">": "<"}
-    opening_brackets = set(brackets_map.values())
-    closing_brackets = set(brackets_map.keys())
- 
-    for char in line:
-        if char in opening_brackets:
-            stack.append(char)
-        elif char in closing_brackets:
-            if not stack or brackets_map[char] != stack.pop():
-                return False
- 
-    return not stack
+def gears(gear_list, n, m):
+    for i in range(len(gear_list)):
+        for j in range(i + 1, len(gear_list)):
+            if gear_list[i] * m == gear_list[j] * n:
+                return (gear_list[i], gear_list[j])
+    return (None, None)
