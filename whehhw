@@ -1,25 +1,10 @@
-VIN = 3  # Глобальная переменная "Очень Важное Число"
-
-def future(*masses, **constants):
-    product_masses = 1
-    for mass in masses:
-        product_masses *= mass
-
-    sum_constants = sum(constants.values())
-    
-    if product_masses > VIN * sum_constants:
-        return "ACCELERATION"
-    elif product_masses < VIN * sum_constants:
-        return "DECELERATION"
-    else:
-        return "UNCHANGED"
-
-# Пример вызова
-mass = [1, 2, 3, 4]
-const = {"charge": 1.6, "alpha": 0.137, "pi": 3.14}
-print(future(*mass, **const))  # Вывод: ACCELERATION
-
-VIN = 540
-mass = [1, 2, 3, 4, 5]
-const = {"e0": 9, "mu0": 4}
-print(future(*mass, **const))  # Вывод: UNCHANGED
+def future(*mass, **const):
+    CountConst = 1
+    for key, value in const.items():
+        CountConst *= float(value)
+    sum_of_masses = sum(mass) * CountConst
+    if sum_of_masses > VIN:
+        return 'ACCELERATION'
+    elif sum_of_masses < VIN:
+        return 'DECELERATION'
+    return 'UNCHANGED'
