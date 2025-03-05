@@ -1,48 +1,53 @@
-from chest import Chest
-from button import Button
-from pet import Pet
-def main():
-    # СУНДУК
-    chest_player = Chest()
-    chest_player.open()
+def gauss_elimination(A, b):
+    n = len(A)
 
-    chest_player.add_item("Зелье лечения")
-    chest_player.add_item("Тяжёлые доспехи")
-    chest_player.add_item("Двуручный меч")
-    chest_player.add_item("Драгоценности")
+    # Прямой ход
+    for i in range(n):
+        # Поиск максимального элемента в столбце (частичный выбор ведущего элемента)
+        max_row = i
+        for k in range(i + 1, n):
+            if abs(A[k][i]) > abs(A[max_row][i]):
+                max_row = k
 
-    chest_player.show_content()
+        # Проверка на вырожденность
+        if A[max_row][i] == 0:
+            raise ValueError("Система не имеет единственного решения")
 
-    chest_player.remove_item("Драгоценности")
-    chest_player.remove_item("Зелье лечения")
+        # Перестановка строк
+        if max_row != i:
+            A[i], A[max_row] = A[max_row], A[i]
+            b[i], b[max_row] = b[max_row], b[i]
 
-    chest_player.show_content()
-    chest_player.close()
+        # Обнуление элементов ниже главной диагонали
+        for j in range(i + 1, n):
+            factor = A[j][i] / A[i][i]
+            for k in range(i, n):
+                A[j][k] -= factor * A[i][k]
+            b[j] -= factor * b[i]
 
-    # КНОПКА
-    test_button = Button("Подтверждение", "Зелёный", "Большая", "Прямоугольная")
-    test_button.show_properties()
+    # Обратный ход
+    x = [0] * n
+    for i in range(n - 1, -1, -1):
+        sum_ax = sum(A[i][j] * x[j] for j in range(i + 1, n))
+        x[i] = (b[i] - sum_ax) / A[i][i]
 
-    test_button.press()
-    test_button.release()
+    return x
 
-    test_button.press()
-    test_button.press()
+# Две системы уравнений
+systems = [
+    {
+        "A": [[2, -1, 1], [3, 3, 9], [3, 3, 5]],
+        "b": [3, 42, 12],
+        "name": "Первая система"
+    },
+    {
+        "A": [[3, 2, -1], [2, -2, 4], [-1, 0.5, -1]],
+        "b": [1, -2, 0],
+        "name": "Вторая система"
+    }
+]
 
-    test_button.display_clicks()
-
-    test_button.hold()
-    test_button.release()
-
-    clicks = int(input("Сколько раз нажать на кнопку?: "))
-    test_button.click_multiple_times(clicks)
-    print(f"Кнопка: '{test_button.text}' была нажата {test_button.click_count} раз")
-
-    # ПИТОМЕЦ
-    my_pet = Pet("Tom")
-
-    my_pet.feed()
-
-
-if __name__ == '__main__':
-    main()
+# Решение и вывод результатов
+for system in systems:
+    solution = gauss_elimination(system["A"], system["b"])
+    print(f"{system['name']}: x ≈ {solution[0]:.2f}, y ≈ {solution[1]:.2f}, z ≈ {solution[2]:.2f}")
