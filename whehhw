@@ -1,10 +1,40 @@
-def future(*mass, **const):
-    CountConst = 1
-    for key, value in const.items():
-        CountConst *= float(value)
-    sum_of_masses = sum(mass) * CountConst
-    if sum_of_masses > VIN:
-        return 'ACCELERATION'
-    elif sum_of_masses < VIN:
-        return 'DECELERATION'
-    return 'UNCHANGED'
+# crafting.py
+
+from resources import Stick, IronIngot, GoldIngot, Diamond, NetheriteIngot
+from tools import Pickaxe, Shovel, Axe, Hoe
+
+
+class CraftingTable:
+    def __init__(self):
+        self.name = "Crafting Table"
+
+    def craft(self, stick, material, tool_type=None):
+        if stick.name == "Stick" and stick.amount >= 2 and material is not None:
+            materials = {
+                "Iron Ingot": {"amount": 0, "pickaxe": (15, 250), "shovel": (10, 250), "axe": (15, 132), "hoe": (6, 250)},
+                "Gold Ingot": {"amount": 0, "pickaxe": (12, 32), "shovel": (8, 32), "axe": (12, 32), "hoe": (5, 32)},
+                "Diamond": {"amount": 0, "pickaxe": (20, 1561), "shovel": (14, 1561), "axe": (20, 1561), "hoe": (7, 1561)},
+                "Netherite Ingot": {"amount": 0, "pickaxe": (21, 2031), "shovel": (15, 2031), "axe": (21, 2031), "hoe": (8, 2031)}
+            }
+
+            # Устанавливаем необходимое количество материала для каждого типа инструмента
+            materials["Iron Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
+            materials["Gold Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
+            materials["Diamond"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
+            materials["Netherite Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
+
+            if material.name in materials and material.amount >= materials[material.name]["amount"]:
+                attack_power, durability = materials[material.name][tool_type]
+                if tool_type == "pickaxe":
+                    return Pickaxe(material.name, attack_power, durability)
+                elif tool_type == "shovel":
+                    return Shovel(material.name, attack_power, durability)
+                elif tool_type == "axe":
+                    return Axe(material.name, attack_power, durability)
+                elif tool_type == "hoe":
+                    return Hoe(material.name, attack_power, durability)
+
+        return None
+
+    def info(self):
+        return f"{self.name}"
