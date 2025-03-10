@@ -1,185 +1,251 @@
-# crafting.py
-
-from resources import Stick, IronIngot, GoldIngot, Diamond, NetheriteIngot
-from tools import Pickaxe, Shovel, Axe, Hoe
-
-
-class CraftingTable:
-    def __init__(self):
-        self.name = "Crafting Table"
-
-    def craft(self, stick, material, tool_type=None):
-        if stick.name == "Stick" and stick.amount >= 2 and material is not None:
-            materials = {
-                "Iron Ingot": {"amount": 0, "pickaxe": (15, 250), "shovel": (10, 250), "axe": (15, 132), "hoe": (6, 250)},
-                "Gold Ingot": {"amount": 0, "pickaxe": (12, 32), "shovel": (8, 32), "axe": (12, 32), "hoe": (5, 32)},
-                "Diamond": {"amount": 0, "pickaxe": (20, 1561), "shovel": (14, 1561), "axe": (20, 1561), "hoe": (7, 1561)},
-                "Netherite Ingot": {"amount": 0, "pickaxe": (21, 2031), "shovel": (15, 2031), "axe": (21, 2031), "hoe": (8, 2031)}
-            }
-
-            # Устанавливаем необходимое количество материала для каждого типа инструмента
-            materials["Iron Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
-            materials["Gold Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
-            materials["Diamond"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
-            materials["Netherite Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2 if tool_type in ["axe", "hoe"] else 1
-
-            if material.name in materials and material.amount >= materials[material.name]["amount"]:
-                attack_power, durability = materials[material.name][tool_type]
-                if tool_type == "pickaxe":
-                    return Pickaxe(material.name, attack_power, durability)
-                elif tool_type == "shovel":
-                    return Shovel(material.name, attack_power, durability)
-                elif tool_type == "axe":
-                    return Axe(material.name, attack_power, durability)
-                elif tool_type == "hoe":
-                    return Hoe(material.name, attack_power, durability)
-
-        return None
-
-    def info(self):
-        return f"{self.name}"
-
-
-
-# tools.py
-
-class Tool:
-    def __init__(self, name, attack_power, durability):
-        self.name = name
-        self.attack_power = attack_power
-        self.durability = durability
-
-    def info(self):
-        return f"{self.name} with attack power {self.attack_power} and durability {self.durability}"
-
-
-class Pickaxe(Tool):
-    def __init__(self, material_name, attack_power, durability):
-        name = f"{material_name} Pickaxe"
-        super().__init__(name, attack_power, durability)
-
-
-class Axe(Tool):
-    def __init__(self, material_name, attack_power, durability):
-        name = f"{material_name} Axe"
-        super().__init__(name, attack_power, durability)
-
-
-class Sword(Tool):
-    def __init__(self, material_name, attack_power, durability):
-        name = f"{material_name} Sword"
-        super().__init__(name, attack_power, durability)
-
-
-
-# crafting.py
-
-from resources import Stick, IronIngot, Diamond, NetheriteIngot
-from tools import Pickaxe, Axe, Sword
-
-
-class CraftingTable:
-    def __init__(self):
-        self.name = "Crafting Table"
-
-    def craft(self, stick, material, tool_type=None):
-        if stick.name == "Stick" and stick.amount >= 2 and material is not None:
-            materials = {
-                "Iron Ingot": {"amount": 0, "pickaxe": (15, 250), "axe": (15, 132), "sword": (14, 250)},
-                "Diamond": {"amount": 0, "pickaxe": (20, 1561), "axe": (20, 1561), "sword": (20, 1561)},
-                "Netherite Ingot": {"amount": 0, "pickaxe": (21, 2031), "axe": (21, 2031), "sword": (21, 2031)}
-            }
-
-            # Set the required amount of material for each type of tool
-            materials["Iron Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2
-            materials["Diamond"]["amount"] = 3 if tool_type == "pickaxe" else 2
-            materials["Netherite Ingot"]["amount"] = 3 if tool_type == "pickaxe" else 2
-
-            if material.name in materials and material.amount >= materials[material.name]["amount"]:
-                attack_power, durability = materials[material.name][tool_type]
-                if tool_type == "pickaxe":
-                    return Pickaxe(material.name, attack_power, durability)
-                elif tool_type == "axe":
-                    return Axe(material.name, attack_power, durability)
-                elif tool_type == "sword":
-                    return Sword(material.name, attack_power, durability)
-
-        return None
-
-    def info(self):
-        return f"{self.name}"
-
-
-
-# main.py
-
-from resources import Stick, IronIngot, Diamond, NetheriteIngot
-from crafting import CraftingTable
-
-stick = Stick(amount=2)
-iron_ingot = IronIngot(amount=3)
-diamond = Diamond(amount=3)
-netherite_ingot = NetheriteIngot(amount=3)
-
-crafting_table = CraftingTable()
-
-# Craft an iron axe
-iron_axe = crafting_table.craft(stick, iron_ingot, "axe")
-if iron_axe:
-    print(iron_axe.info())
-else:
-    print("Failed to craft an Iron Axe.")
-
-# Craft a diamond pickaxe
-diamond_pickaxe = crafting_table.craft(stick, diamond, "pickaxe")
-if diamond_pickaxe:
-    print(diamond_pickaxe.info())
-else:
-    print("Failed to craft a Diamond Pickaxe.")
-
-# Craft a netherite sword
-netherite_sword = crafting_table.craft(stick, netherite_ingot, "sword")
-if netherite_sword:
-    print(netherite_sword.info())
-else:
-    print("Failed to craft a Netherite Sword.")
-
-
-
-
-# resources.py
-
 class Stick:
-    def __init__(self, amount=1):
-        self.name = "Stick"
-        self.amount = amount
+    def __init__(self):
+        self.__description = "Палка"
+        self.__count = 1
+
+    def get_count(self):
+        return self.__count
+
+    def set_count(self, count):
+        if count >= 0:
+            self.__count = count
 
     def info(self):
-        return f"Stick x{self.amount}"
+        return f"{self.__description} ({self.get_count()})"
 
 
-class IronIngot:
-    def __init__(self, amount=1):
-        self.name = "Iron Ingot"
-        self.amount = amount
+class Resource:
+    def __init__(self, name, count):
+        self.__name = name
+        self.__count = count
 
-    def info(self):
-        return f"Iron Ingot x{self.amount}"
+    def get_name(self):
+        return self.__name
 
+    def get_count(self):
+        return self.__count
 
-class Diamond:
-    def __init__(self, amount=1):
-        self.name = "Diamond"
-        self.amount = amount
-
-    def info(self):
-        return f"Diamond x{self.amount}"
-
-
-class NetheriteIngot:
-    def __init__(self, amount=1):
-        self.name = "Netherite Ingot"
-        self.amount = amount
+    def set_count(self, count):
+        if count >= 0:
+            self.__count = count
 
     def info(self):
-        return f"Netherite Ingot x{self.amount}"
+        return f"{self.__name} ({self.get_count()})"
+
+class IronPickaxe:
+    def __init__(self):
+        self.__material = "Железо"
+        self.__durability = 32
+        self.__description = f"{self.__material} Кирка"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class DiamondPickaxe:
+    def __init__(self):
+        self.__material = "Алмаз"
+        self.__durability = 1561
+        self.__description = f"{self.__material} Кирка"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class NetheritePickaxe:
+    def __init__(self):
+        self.__material = "Незерит"
+        self.__durability = 2031
+        self.__description = f"{self.__material} Кирка"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class IronShovel:
+    def __init__(self):
+        self.__material = "Железо"
+        self.__durability = 256
+        self.__description = f"{self.__material} Лопата"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class DiamondShovel:
+    def __init__(self):
+        self.__material = "Алмаз"
+        self.__durability = 1561
+        self.__description = f"{self.__material} Лопата"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class NetheriteShovel:
+    def __init__(self):
+        self.__material = "Незерит"
+        self.__durability = 2031
+        self.__description = f"{self.__material} Лопата"
+
+    def get_durability(self):
+        return self.__durability
+
+    def set_durability(self, value):
+        if value >= 0:
+            self.__durability = value
+
+    def info(self):
+        return f"{self.__description} ({self.get_durability()})"
+
+    def use(self):
+        if self.get_durability() > 0:
+            self.set_durability(self.get_durability() - 1)
+            return True
+        else:
+            print("Инструмент сломан")
+            return False
+
+
+class Workbench:
+    def check_resources(self, *resources):
+        for resource in resources:
+            if resource.get_count() <= 0:
+                return False
+        return True
+
+
+from tools import IronPickaxe, DiamondPickaxe, NetheritePickaxe, IronShovel, DiamondShovel, NetheriteShovel
+from stick import Stick
+from resource import Resource
+
+
+def craft_pickaxe(stick, resource, material):
+    if stick.get_count() >= 1 and resource.get_count() >= 2:
+        stick.set_count(stick.get_count() - 1)
+        resource.set_count(resource.get_count() - 2)
+        if material == "iron":
+            return IronPickaxe()
+        elif material == "diamond":
+            return DiamondPickaxe()
+        elif material == "netherite":
+            return NetheritePickaxe()
+    else:
+        print("Недостаточно ресурсов для крафта")
+        return None
+
+
+def craft_shovel(stick, resource, material):
+    if stick.get_count() >= 1 and resource.get_count() >= 2:
+        stick.set_count(stick.get_count() - 1)
+        resource.set_count(resource.get_count() - 2)
+        if material == "iron":
+            return IronShovel()
+        elif material == "diamond":
+            return DiamondShovel()
+        elif material == "netherite":
+            return NetheriteShovel()
+    else:
+        print("Недостаточно ресурсов для крафта")
+        return None
+
+
+from stick import Stick
+from resource import Resource
+from crafting import craft_pickaxe, craft_shovel
+
+stick = Stick()
+iron_resource = Resource("Железо", 3)
+diamond_resource = Resource("Алмаз", 3)
+netherite_resource = Resource("Незерит", 3)
+
+# Пытаемся создать железную кирку
+iron_pickaxe = craft_pickaxe(stick, iron_resource, "iron")
+
+if iron_pickaxe:
+    print(iron_pickaxe.info())  # Вывод: Железо Кирка (32)
+else:
+    print("Не удалось создать кирку")
+
+# Пытаемся создать алмазную лопату
+diamond_shovel = craft_shovel(stick, diamond_resource, "diamond")
+
+if diamond_shovel:
+    print(diamond_shovel.info())  # Вывод: Алмаз Лопата (1561)
+else:
+    print("Не удалось создать лопату")
