@@ -143,3 +143,43 @@ if netherite_sword:
     print(netherite_sword.info())
 else:
     print("Failed to craft a Netherite Sword.")
+
+
+
+
+# resources.py
+
+class Stick:
+    def __init__(self, amount=1):
+        self.name = "Stick"
+        self.amount = amount
+
+    def info(self):
+        return f"Stick x{self.amount}"
+
+
+class IronIngot:
+    def __init__(self, amount=1):
+        self.name = "Iron Ingot"
+        self.amount = amount
+
+    def info(self):
+        return f"Iron Ingot x{self.amount}"
+
+
+class Diamond:
+    def __init__(self, amount=1):
+        self.name = "Diamond"
+        self.amount = amount
+
+    def info(self):
+        return f"Diamond x{self.amount}"
+
+
+class NetheriteIngot:
+    def __init__(self, amount=1):
+        self.name = "Netherite Ingot"
+        self.amount = amount
+
+    def info(self):
+        return f"Netherite Ingot x{self.amount}"
