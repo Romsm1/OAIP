@@ -1,6 +1,59 @@
-("Палка", "Камень", "Камень"): "Каменный меч",
+class Item:
+    """Класс для всех предметов"""
+    def __init__(self, name):
+        self._name = name.strip().capitalize()  # Убираем лишние пробелы и приводим к единому регистру
+
+    def get_info(self):
+        """Возвращает информацию о предмете"""
+        return f"Предмет: {self._name}"
+
+    def get_name(self):
+        return self._name
+
+
+class CraftingTable:
+    """Класс для крафта предметов"""
+    def __init__(self):
+        self._recipes = {
+            ("Камень", "Камень", "Палка"): "Каменный меч",
             ("Доски", "Палка"): "Меч из досок",
-            ("Палка", "Палка", "Камень", "Камень", "Камень"): "Каменная кирка",
-            ("Палка", "Железо", "Железо"): "Железный меч",
-            ("Палка", "Алмаз", "Алмаз"): "Алмазный меч"
+            ("Камень", "Камень", "Камень", "Палка", "Палка"): "Каменная кирка",
+            ("Железо", "Железо", "Палка"): "Железный меч",
+            ("Алмаз", "Алмаз", "Палка"): "Алмазный меч"
         }
+
+    def craft(self, items):
+        """Создаёт предмет, если есть подходящий рецепт"""
+        item_names = tuple(sorted([item.get_name() for item in items]))
+        print(f"Попытка крафта: {item_names}")  # Отладочный вывод
+        if item_names in self._recipes:
+            return Item(self._recipes[item_names])  # Возвращаем новый предмет
+        else:
+            return None  # Крафт не удался
+
+
+# --- Создаём предметы ---
+stick = Item("Палка")
+stone = Item("Камень")
+wood = Item("Доски")
+iron = Item("Железо")
+diamond = Item("Алмаз")
+
+# --- Создаём верстак ---
+table = CraftingTable()
+
+# Пробуем крафтить предметы
+crafts = [
+    ([stick, stone, stone], "Каменный меч"),
+    ([wood, stick], "Меч из досок"),
+    ([stick, stick, stone, stone, stone], "Каменная кирка"),
+    ([stick, iron, iron], "Железный меч"),
+    ([stick, diamond, diamond], "Алмазный меч")
+]
+
+for materials, expected in crafts:
+    crafted_item = table.craft(materials)
+    if crafted_item:
+        print(crafted_item.get_info())  # Выводит скрафченный предмет
+    else:
+        print(f"Не удалось скрафтить {expected}")
