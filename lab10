@@ -1,10 +1,8 @@
 class Item:
-    """Класс для всех предметов"""
     def __init__(self, name):
-        self._name = name.strip().capitalize()  # Убираем пробелы и делаем 1-ю букву заглавной
+        self._name = name
 
     def get_info(self):
-        """Возвращает информацию о предмете"""
         return f"Предмет: {self._name}"
 
     def get_name(self):
@@ -12,7 +10,6 @@ class Item:
 
 
 class CraftingTable:
-    """Класс для крафта предметов"""
     def __init__(self):
         self._recipes = {
             ("Камень", "Камень", "Палка"): "Каменный меч",
@@ -26,26 +23,25 @@ class CraftingTable:
         }
 
     def craft(self, items):
-        """Создаёт предмет, если есть подходящий рецепт"""
         item_names = tuple(sorted([item.get_name() for item in items]))
-        print(f"Попытка крафта: {item_names}")  # Отладочный вывод
+        print(f"Попытка крафта: {item_names}")
         if item_names in self._recipes:
-            return Item(self._recipes[item_names])  # Возвращаем новый предмет
+            return Item(self._recipes[item_names])
         else:
-            return None  # Крафт не удался
+            return None
 
 
-# --- Создаём предметы ---
+# Ресурсы для крафта
 stick = Item("Палка")
 stone = Item("Камень")
 wood = Item("Доски")
 iron = Item("Железо")
 diamond = Item("Алмаз")
 
-# --- Создаём верстак ---
+# Создание верстака
 table = CraftingTable()
 
-# Пробуем крафтить предметы
+# Крафт предметов
 crafts = [
     ([stick, stone, stone], "Каменный меч"),
     ([wood, stick], "Деревянный меч"),
@@ -60,7 +56,8 @@ crafts = [
 for materials, expected in crafts:
     crafted_item = table.craft(materials)
     if crafted_item:
-        print(crafted_item.get_info())  # Выводит скрафченный предмет
+        print(crafted_item.get_info())
     else:
         print(f"Не удалось скрафтить {expected}")
+
 
