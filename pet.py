@@ -1,14 +1,79 @@
-class Pet:
-    def __init__(self, name="Имя питомца"):
-        self.name = name
-        self.hunger = 50
-        self.happy = 50
-        self.sleep = 50
-        self.hygiene = 50
+class GameObject:
+    def __init__(self):
+        pass  # Конструктор базового класса для всех объектов игры
 
-    def feed(self):
-        if self.hunger >= 50:
-            print(f"{self.name} голоден, его нужно покормить")
+    def render(self):
+        pass  # Метод для отображения объекта
+
+
+class GameBoard(GameObject):
+    def __init__(self):
+        pass  # Конструктор для игрового поля
+
+    def display(self):
+        pass  # Метод для отображения игрового поля
+
+    def place_ship(self, ship, x, y, orientation):
+        pass  # Метод для размещения корабля на поле
+
+    def attack(self, x, y):
+        pass  # Метод для выполнения атаки по координатам
+
+
+class Ship(GameObject):
+    def __init__(self, size):
+        pass  # Конструктор для создания корабля
+
+    def move(self, x, y):
+        pass  # Метод для перемещения корабля
+
+    def take_damage(self):
+        pass  # Метод для получения повреждений кораблем
+
+    def is_sunk(self):
+        pass  # Метод для проверки, потоплен ли корабль
+
+
+class Cell(GameObject):
+    def __init__(self, x, y):
+        pass  # Конструктор для создания клетки на поле
+
+    def is_empty(self):
+        pass  # Метод для проверки, пуста ли клетка
+
+    def mark_hit(self):
+        pass  # Метод для пометки клетки как поражённой
+
+    def mark_miss(self):
+        pass  # Метод для пометки клетки как промаха
+
+
+class Player(GameObject):
+    def __init__(self, name):
+        pass  # Конструктор для создания игрока
+
+    def place_ships(self):
+        pass  # Метод для размещения кораблей игроком
+
+    def make_move(self, opponent, x, y):
+        pass  # Метод для совершения хода (атака по координатам на поле противника)
+
+
+class Game:
+    def __init__(self, player1, player2):
+        pass  # Конструктор для создания игры
+
+    def switch_turn(self):
+        pass  # Метод для смены хода между игроками
+
+    def check_winner(self):
+        pass  # Метод для проверки победителя
+
+    def start_game(self):
+        pass  # Метод для начала игры
+
+    def end_game(self):
+        pass  # Метод для завершения игры
 
 
 
