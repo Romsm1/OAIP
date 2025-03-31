@@ -1,4 +1,4 @@
-class Character:
+9class Character:
     def __init__(self, name, hp, attack_power):
         self.name = name
         self.hp = hp
@@ -56,7 +56,7 @@ class Archer(Character):
         if self.endurance >= 15 and self.arrows > 0:
             print(f'{self.name} стреляет из лука и наносит урон размером: {self.attack_power}')
         else:
-            print(f'У {self.name} закончились стрелы либо недостаточно выносливости для совершения вытсрела!')
+            print(f'У {self.name} закончились стрелы либо недостаточно выносливости для совершения выстрела!')
 
     def info(self):
         super().info()
