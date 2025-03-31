@@ -52,18 +52,20 @@ class Pickaxe:
         return f"Кирка из {self.material.name}, Прочность: {self.durability}, Эффективность: {self.efficiency}"
 
 def craft_sword(stick_count, material_count, material):
+    durability_dict = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}
+    damage_dict = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}
+    
     if stick_count >= 1 and material_count >= 2:
-        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
-        damage = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}[material.name]
-        return Sword(material, durability, damage)
+        return Sword(material, durability_dict.get(material.name, 0), damage_dict.get(material.name, 0))
     else:
         return "Недостаточно материалов!"
 
 def craft_pickaxe(stick_count, material_count, material):
+    durability_dict = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}
+    efficiency_dict = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}
+    
     if stick_count >= 2 and material_count >= 3:
-        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
-        efficiency = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}[material.name]
-        return Pickaxe(material, durability, efficiency)
+        return Pickaxe(material, durability_dict.get(material.name, 0), efficiency_dict.get(material.name, 0))
     else:
         return "Недостаточно материалов!"
 
@@ -75,11 +77,13 @@ while True:
     stick_count = int(input("Введите количество палок: "))
     material_count = int(input(f"Введите количество {material_name}: "))
     
-    if material_name not in ["Дерево", "Камень", "Железо", "Алмаз"]:
+    material_classes = {"Дерево": Wood, "Камень": Stone, "Железо": Iron, "Алмаз": Diamond}
+    
+    if material_name not in material_classes:
         print("Неверный материал!")
         continue
     
-    material = globals()[material_name]()
+    material = material_classes[material_name]()
     
     if item_type == "меч":
         item = craft_sword(stick_count, material_count, material)
