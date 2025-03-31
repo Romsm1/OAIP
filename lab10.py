@@ -1,63 +1,106 @@
-class Item:
-    def __init__(self, name):
-        self._name = name
-
-    def get_info(self):
-        return f"Предмет: {self._name}"
-
-    def get_name(self):
-        return self._name
-
-
-class CraftingTable:
+class Stick:
     def __init__(self):
-        self._recipes = {
-            ("Камень", "Камень", "Палка"): "Каменный меч",
-            ("Доски", "Палка"): "Деревянный меч",
-            ("Камень", "Камень", "Камень", "Палка", "Палка"): "Каменная кирка",
-            ("Железо", "Железо", "Палка"): "Железный меч",
-            ("Алмаз", "Алмаз", "Палка"): "Алмазный меч",
-            ("Доски", "Доски", "Доски", "Палка", "Палка"): "Деревянная кирка",
-            ("Железо", "Железо", "Железо", "Палка", "Палка"): "Железная кирка",
-            ("Алмаз", "Алмаз", "Алмаз", "Палка", "Палка"): "Алмазная кирка"
-        }
+        self.name = "Палка"
 
-    def craft(self, items):
-        item_names = tuple(sorted([item.get_name() for item in items]))
-        print(f"Попытка крафта: {item_names}")
-        if item_names in self._recipes:
-            return Item(self._recipes[item_names])
-        else:
-            return None
+    def info(self):
+        return f"Материал: {self.name}"
 
 
-# Ресурсы для крафта
-stick = Item("Палка")
-stone = Item("Камень")
-wood = Item("Доски")
-iron = Item("Железо")
-diamond = Item("Алмаз")
+class Дерево:
+    def __init__(self):
+        self.name = "Дерево"
 
-# Создание верстака
-table = CraftingTable()
+    def info(self):
+        return f"Материал: {self.name}"
 
-# Крафт предметов
-crafts = [
-    ([stick, stone, stone], "Каменный меч"),
-    ([wood, stick], "Деревянный меч"),
-    ([stick, stick, stone, stone, stone], "Каменная кирка"),
-    ([stick, iron, iron], "Железный меч"),
-    ([stick, diamond, diamond], "Алмазный меч"),
-    ([stick, stick, wood, wood, wood], "Деревянная кирка"),
-    ([stick, stick, iron, iron, iron], "Железная кирка"),
-    ([stick, stick, diamond, diamond, diamond], "Алмазная кирка")
-]
 
-for materials, expected in crafts:
-    crafted_item = table.craft(materials)
-    if crafted_item:
-        print(crafted_item.get_info())
+class Камень:
+    def __init__(self):
+        self.name = "Камень"
+
+    def info(self):
+        return f"Материал: {self.name}"
+
+
+class Железо:
+    def __init__(self):
+        self.name = "Железо"
+
+    def info(self):
+        return f"Материал: {self.name}"
+
+
+class Алмаз:
+    def __init__(self):
+        self.name = "Алмаз"
+
+    def info(self):
+        return f"Материал: {self.name}"
+
+
+class Sword:
+    def __init__(self, material, durability, damage):
+        self.material = material
+        self.durability = durability
+        self.damage = damage
+
+    def info(self):
+        return f"Меч из {self.material.name}, Прочность: {self.durability}, Урон: {self.damage}"
+
+
+class Pickaxe:
+    def __init__(self, material, durability, efficiency):
+        self.material = material
+        self.durability = durability
+        self.efficiency = efficiency
+
+    def info(self):
+        return f"Кирка из {self.material.name}, Прочность: {self.durability}, Эффективность: {self.efficiency}"
+
+
+def craft_sword(stick_count, material_count, material):
+    if stick_count >= 1 and material_count >= 2:
+        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
+        damage = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}[material.name]
+        return Sword(material, durability, damage)
     else:
-        print(f"Не удалось скрафтить {expected}")
+        return "Недостаточно материалов!"
+
+
+def craft_pickaxe(stick_count, material_count, material):
+    if stick_count >= 2 and material_count >= 3:
+        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
+        efficiency = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}[material.name]
+        return Pickaxe(material, durability, efficiency)
+    else:
+        return "Недостаточно материалов!"
+
+
+while True:
+    item_type = input("Создать меч или кирку? (Меч/Кирка/Выход): ")
+    if item_type == "Выход":
+        break
+    material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ")
+    stick_count = int(input("Введите количество палок: "))
+    material_count = int(input(f"Введите количество {material_name}: "))
+
+    if material_name not in ["Дерево", "Камень", "Железо", "Алмаз"]:
+        print("Неверный материал!")
+        continue
+
+    material = globals()[material_name]()
+
+    if item_type == "Меч":
+        item = craft_sword(stick_count, material_count, material)
+    elif item_type == "Кирка":
+        item = craft_pickaxe(stick_count, material_count, material)
+    else:
+        print("Неверный выбор!")
+        continue
+
+    if isinstance(item, str):
+        print(item)
+    else:
+        print(item.info())
 
 
