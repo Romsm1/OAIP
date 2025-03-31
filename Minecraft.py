@@ -1,37 +1,37 @@
 class Stick:
     def __init__(self):
-        self.name = "Stick"
+        self.name = "Палка"
     
     def info(self):
-        return f"Material: {self.name}"
+        return f"Материал: {self.name}"
 
 class Wood:
     def __init__(self):
-        self.name = "Wood"
+        self.name = "Дерево"
     
     def info(self):
-        return f"Material: {self.name}"
+        return f"Материал: {self.name}"
 
-class Cobblestone:
+class Stone:
     def __init__(self):
-        self.name = "Cobblestone"
+        self.name = "Камень"
     
     def info(self):
-        return f"Material: {self.name}"
+        return f"Материал: {self.name}"
 
-class IronIngot:
+class Iron:
     def __init__(self):
-        self.name = "Iron Ingot"
+        self.name = "Железо"
     
     def info(self):
-        return f"Material: {self.name}"
+        return f"Материал: {self.name}"
 
 class Diamond:
     def __init__(self):
-        self.name = "Diamond"
+        self.name = "Алмаз"
     
     def info(self):
-        return f"Material: {self.name}"
+        return f"Материал: {self.name}"
 
 class Sword:
     def __init__(self, material, durability, damage):
@@ -40,7 +40,7 @@ class Sword:
         self.damage = damage
     
     def info(self):
-        return f"Sword made of {self.material.name}, Durability: {self.durability}, Damage: {self.damage}"
+        return f"Меч из {self.material.name}, Прочность: {self.durability}, Урон: {self.damage}"
 
 class Pickaxe:
     def __init__(self, material, durability, efficiency):
@@ -49,44 +49,44 @@ class Pickaxe:
         self.efficiency = efficiency
     
     def info(self):
-        return f"Pickaxe made of {self.material.name}, Durability: {self.durability}, Efficiency: {self.efficiency}"
+        return f"Кирка из {self.material.name}, Прочность: {self.durability}, Эффективность: {self.efficiency}"
 
 def craft_sword(stick_count, material_count, material):
     if stick_count >= 1 and material_count >= 2:
-        durability = {"Wood": 59, "Cobblestone": 131, "Iron Ingot": 250, "Diamond": 1561}[material.name]
-        damage = {"Wood": 4, "Cobblestone": 5, "Iron Ingot": 6, "Diamond": 7}[material.name]
+        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
+        damage = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}[material.name]
         return Sword(material, durability, damage)
     else:
-        return "Not enough materials!"
+        return "Недостаточно материалов!"
 
 def craft_pickaxe(stick_count, material_count, material):
     if stick_count >= 2 and material_count >= 3:
-        durability = {"Wood": 59, "Cobblestone": 131, "Iron Ingot": 250, "Diamond": 1561}[material.name]
-        efficiency = {"Wood": 2, "Cobblestone": 4, "Iron Ingot": 6, "Diamond": 8}[material.name]
+        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
+        efficiency = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}[material.name]
         return Pickaxe(material, durability, efficiency)
     else:
-        return "Not enough materials!"
+        return "Недостаточно материалов!"
 
 while True:
-    item_type = input("Craft sword or pickaxe? (sword/pickaxe/exit): ")
-    if item_type == "exit":
+    item_type = input("Создать меч или кирку? (меч/кирка/выход): ")
+    if item_type == "выход":
         break
-    material_name = input("Choose material (Wood, Cobblestone, Iron Ingot, Diamond): ")
-    stick_count = int(input("Enter number of sticks: "))
-    material_count = int(input(f"Enter number of {material_name}: "))
+    material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ")
+    stick_count = int(input("Введите количество палок: "))
+    material_count = int(input(f"Введите количество {material_name}: "))
     
-    if material_name not in ["Wood", "Cobblestone", "Iron Ingot", "Diamond"]:
-        print("Invalid material!")
+    if material_name not in ["Дерево", "Камень", "Железо", "Алмаз"]:
+        print("Неверный материал!")
         continue
     
-    material = globals()[material_name.replace(" ", "")]()
+    material = globals()[material_name]()
     
-    if item_type == "sword":
+    if item_type == "меч":
         item = craft_sword(stick_count, material_count, material)
-    elif item_type == "pickaxe":
+    elif item_type == "кирка":
         item = craft_pickaxe(stick_count, material_count, material)
     else:
-        print("Invalid choice!")
+        print("Неверный выбор!")
         continue
     
     if isinstance(item, str):
