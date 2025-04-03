@@ -1,0 +1,114 @@
+class FlagsRegister:
+    def __init__(self):
+        # Инициализация флагов
+        self.zero = False  # Флаг нулевого результата
+        self.negative = False  # Флаг отрицательного результата (всегда False)
+        self.overflow = False  # Флаг переполнения
+
+    def update(self, value: list):
+        """
+        Обновляет значения флагов на основе переданного списка битов.
+        :param value: список битов (результат операции)
+        """
+        # Преобразуем список битов в целое число
+        int_value = int("".join(map(str, value)), 2)
+
+        # Обновляем флаги
+        self.zero = int_value == 0  # Устанавливаем Z, если результат равен 0
+        self.negative = False  # N всегда False, так как числа положительные
+        self.overflow = int_value > (2**32 - 1)  # Устанавливаем O, если результат больше 2^32-1
+
+    def __repr__(self):
+        """
+        Возвращает строковое представление состояния флагов.
+        """
+        return f"Flags(Z={self.zero}, N={self.negative}, O={self.overflow})"
+
+
+
+
+
+from flags_register import FlagsRegister
+
+class Register:
+    def __init__(self, name: str, size: int = 32):
+        """
+        Инициализация регистра.
+        :param name: название регистра
+        :param size: размер регистра (по умолчанию 32 бита)
+        """
+        self.name = name
+        self.size = size
+        self.value = [0] * size  # Инициализация регистра нулями
+        self.flags = FlagsRegister()  # Создание экземпляра FlagsRegister
+
+    def load(self, value: int):
+        """
+        Загружает положительное целое число в регистр.
+        :param value: целое число (должно быть в диапазоне 0 <= value <= 2^32-1)
+        """
+        # Если значение выходит за пределы, ограничиваем его до 32 бит
+        value = value % (2**32)
+        # Преобразуем число в список битов (младший бит справа)
+        self.value = list(map(int, f"{value:0{self.size}b}"))
+
+    def to_int(self):
+        """
+        Преобразует список битов в целое число.
+        :return: целое число
+        """
+        return int("".join(map(str, self.value)), 2)
+
+    def add(self, other: 'Register') -> 'Register':
+        """
+        Складывает значение текущего регистра с другим регистром.
+        :param other: другой регистр
+        :return: новый регистр с результатом
+        """
+        result = self.to_int() + other.to_int()
+        new_register = Register(f"{self.name}+{other.name}")
+        new_register.load(result % (2**32))  # Ограничиваем результат до 32 бит
+        self.flags.update(new_register.value)  # Обновляем флаги
+        return new_register
+
+    def sub(self, other: 'Register') -> 'Register':
+        """
+        Вычитает значение другого регистра из текущего.
+        :param other: другой регистр
+        :return: новый регистр с результатом
+        """
+        result = max(0, self.to_int() - other.to_int())  # Результат не может быть меньше 0
+        new_register = Register(f"{self.name}-{other.name}")
+        new_register.load(result)
+        self.flags.update(new_register.value)  # Обновляем флаги
+        return new_register
+
+    def mul(self, other: 'Register') -> 'Register':
+        """
+        Умножает значение текущего регистра на другой регистр.
+        :param other: другой регистр
+        :return: новый регистр с результатом
+        """
+        result = self.to_int() * other.to_int()
+        new_register = Register(f"{self.name}*{other.name}")
+        new_register.load(result % (2**32))  # Ограничиваем результат до 32 бит
+        self.flags.update(new_register.value)  # Обновляем флаги
+        return new_register
+
+    def div(self, other: 'Register') -> 'Register':
+        """
+        Делит значение текущего регистра на другой регистр.
+        :param other: другой регистр
+        :return: новый регистр с результатом
+        """
+        result = self.to_int() // other.to_int()  # Целочисленное деление
+        new_register = Register(f"{self.name}/{other.name}")
+        new_register.load(result)
+        self.flags.update(new_register.value)  # Обновляем флаги
+        return new_register
+
+    def __repr__(self):
+        """
+        Возвращает строковое представление регистра и флагов.
+        """
+        return f"Register({self.name}, Value={self.to_int()}, {self.flags})"
