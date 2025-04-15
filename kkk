@@ -1,0 +1,29 @@
+# Открываем файл для чтения
+try:
+    with open('prices.txt', 'r', encoding='utf-8') as file:
+        total_cost = 0.0
+        
+        for line in file:
+            # Разделяем строку по табуляции
+            parts = line.strip().split('\t')
+            
+            # Проверяем, что строка содержит ровно три части
+            if len(parts) == 3:
+                name, quantity, price = parts
+                
+                try:
+                    # Пробуем преобразовать количество и цену в числа
+                    quantity = int(quantity)
+                    price = float(price)
+                    
+                    # Добавляем к общей стоимости
+                    total_cost += quantity * price
+                except:
+                    # Если возникла ошибка, просто игнорируем эту строку
+                    continue
+
+    # Выводим результат с точностью до двух знаков после запятой
+    print(f"{total_cost:.2f}")
+
+except FileNotFoundError:
+    print("Файл prices.txt не найден.")
