@@ -12,7 +12,8 @@ class Button:
     def show_properties(self):
         # свойства кнопки
         print(f"Текст кнопки = '{self.text}', Цвет = '{self.color}', Размер = '{self.size}', Форма = '{self.shape}'")
-         
+        print(f"Координаты кнопки: X = {self.x},  Y = {self.y}")
+
 
     def press(self):
         # метод нажатия кнопки
