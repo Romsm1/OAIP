@@ -1,15 +1,18 @@
 class Button:
-    def __init__(self, text="Нажми меня", color="green", size="medium", shape="oval"):
+    def __init__(self, text="Нажми меня", color="green", size="medium", shape="oval", x=0, y=0):
         self.text = text
         self.color = color
         self.size = size
         self.shape = shape
         self.pressed = False
         self.click_count = 0
+        self.x = x
+        self.y = y
 
     def show_properties(self):
         # свойства кнопки
         print(f"Текст кнопки = '{self.text}', Цвет = '{self.color}', Размер = '{self.size}', Форма = '{self.shape}'")
+         
 
     def press(self):
         # метод нажатия кнопки
