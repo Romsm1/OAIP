@@ -1,6 +1,7 @@
 from chest import Chest
 from button import Button
 from pet import Pet
+
 def main():
     # СУНДУК
     chest_player = Chest()
@@ -20,7 +21,21 @@ def main():
     chest_player.close()
 
     # КНОПКА
-    test_button = Button("Подтверждение", "Зелёный", "Большая", "Прямоугольная")
+    print("\nСоздание кнопки:")
+    text = input("Введите текст для кнопки (по умолчанию 'Нажми меня'): ") or "Нажми меня"
+    color = input("Введите цвет кнопки (по умолчанию 'green'): ") or "green"
+    size = input("Введите размер кнопки (по умолчанию 'medium'): ") or "medium"
+    shape = input("Введите форму кнопки (по умолчанию 'oval'): ") or "oval"
+
+    # Ввод координат
+    try:
+        x = int(input("Введите координату X (по умолчанию 0): ") or 0)
+        y = int(input("Введите координату Y (по умолчанию 0): ") or 0)
+    except ValueError:
+        print("Неверный формат координат. Будут использованы значения по умолчанию (0, 0).")
+        x, y = 0, 0
+
+    test_button = Button(text=text, color=color, size=size, shape=shape, x=x, y=y)
     test_button.show_properties()
 
     test_button.press()
@@ -51,7 +66,6 @@ def main():
         print("Нажмите '5', чтобы питомец принял душ.")
         print("Нажмите '6', чтобы купить питомцу предмет.")
         print("Нажмите '7', чтобы выйти.")
-
 
         choice = input("\nВыберите какое действие нужно выполнить: ")
         if choice == "1":
