@@ -1,40 +1,31 @@
 class Pet:
     def __init__(self, name="Имя питомца"):
         self.name = name
-        self.hunger = 50  # Голод
-        self.happy = 50   # Счастье
-        self.hygiene = 80  # Гигиена
-        self.sleepiness = 50  # Сонливость
-        self.sleeping = False  # Флаг сна
-        self.alive = True  # Жив ли питомец
+        self.hunger = 50  
+        self.happy = 50   
+        self.hygiene = 80  
+        self.sleepiness = 50  
+        self.sleeping = False  
+        self.alive = True  
 
-    def _normalize_stats(self):
-        """
-        Нормализует статусы питомца, чтобы они оставались в пределах [0, 100].
-        """
+    def normalize_stats(self):
         self.hunger = max(0, min(100, self.hunger))
         self.happy = max(0, min(100, self.happy))
         self.hygiene = max(0, min(100, self.hygiene))
         self.sleepiness = max(0, min(100, self.sleepiness))
 
-    def _check_alive(self):
-        """
-        Проверяет, жив ли питомец. Если один из статусов равен 0, питомец умирает.
-        """
+    def check_alive(self):
         if self.hunger <= 0 or self.happy <= 0 or self.hygiene <= 0 or self.sleepiness >= 100:
             self.alive = False
             print(f"\n{self.name} умер... :(")
 
-    def _decrease_stats_while_waiting(self):
-        """
-        Уменьшает статусы питомца в режиме ожидания.
-        """
+    def decrease_stats_while_waiting(self):
         if not self.sleeping:
-            self.hunger -= 5
-            self.happy -= 5
-            self.hygiene -= 5
-            self.sleepiness += 5
-            print(f"\n{self.name} ждет... Его показатели ухудшились.")
+            self.hunger -= 15
+            self.happy -= 30
+            self.hygiene -= 10
+            self.sleepiness += 20
+            print(f"\n{self.name} ждет. Его показатели ухудшились.")
         else:
             print(f"\n{self.name} спит. Показатели не меняются.")
 
@@ -47,7 +38,7 @@ class Pet:
             print(f"\n{self.name} спит и не может есть.")
             return
 
-        if self.hunger < 50:
+        if self.hunger <= 50:
             self.hunger += 30
             self.happy += 10
             self.hygiene -= 10
@@ -78,7 +69,7 @@ class Pet:
         if self.sleeping:
             self.sleeping = False
             self.happy += 15
-            self.hunger += 20
+            self.hunger -= 25
             self.sleepiness -= 50
             print(f"\n{self.name} проснулся. Его счастье повысилось, а голод увеличился.")
         else:
@@ -138,13 +129,6 @@ class Pet:
         print(status)
 
     def wait(self):
-        """
-        Режим ожидания. Постепенно ухудшает статусы питомца.
-        """
         if not self.alive:
             print(f"\n{self.name} мертв и не может ждать.")
             return
-
-        self._decrease_stats_while_waiting()
-        self._normalize_stats()
-        self._check_alive()
