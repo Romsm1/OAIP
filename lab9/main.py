@@ -2,8 +2,10 @@ from chest import Chest
 from button import Button
 from pet import Pet
 
+
 def main():
     # СУНДУК
+    print("\n=== РАБОТА С СУНДУКОМ ===")
     chest_player = Chest()
     chest_player.open()
 
@@ -21,7 +23,8 @@ def main():
     chest_player.close()
 
     # КНОПКА
-    print("\nСоздание кнопки:")
+    print("\n=== РАБОТА С КНОПКОЙ ===")
+    print("Создание кнопки:")
     text = input("Введите текст для кнопки (по умолчанию 'Нажми меня'): ") or "Нажми меня"
     color = input("Введите цвет кнопки (по умолчанию 'green'): ") or "green"
 
@@ -50,14 +53,6 @@ def main():
     test_button.press()
     test_button.release()
 
-    test_button.press()
-    test_button.press()
-
-    test_button.display_clicks()
-
-    test_button.hold()
-    test_button.release()
-
     clicks = int(input("Сколько раз нажать на кнопку?: "))
     test_button.click_multiple_times(clicks)
     print(f"Кнопка: '{test_button.text}' была нажата {test_button.click_count} раз")
@@ -70,6 +65,7 @@ def main():
         test_button.show_properties()
 
     # ПИТОМЕЦ
+    print("\n=== РАБОТА С ПИТОМЦЕМ ===")
     pet_name = input("Введите имя для вашего питомца: ")
     pet = Pet(pet_name)
 
@@ -81,9 +77,10 @@ def main():
         print("Нажмите '4', чтобы питомец проснулся.")
         print("Нажмите '5', чтобы питомец принял душ.")
         print("Нажмите '6', чтобы купить питомцу предмет.")
-        print("Нажмите '7', чтобы выйти.")
+        print("Нажмите '7', чтобы ускорить время (ухудшить статусы).")
+        print("Нажмите '8', чтобы выйти.")
 
-        choice = input("\nВыберите какое действие нужно выполнить: ")
+        choice = input("\nВыберите действие: ")
         if choice == "1":
             pet.show_status()
         elif choice == "2":
@@ -97,9 +94,21 @@ def main():
         elif choice == "6":
             pet.buy_item()
         elif choice == "7":
+            pet.decrease_stats_while_waiting()
+            pet.normalize_stats()
+            pet.check_alive()
+            print("\nСтатусы питомца ухудшены.")
+        elif choice == "8":
+            print(f"\nВы выходите из игры. {pet.name} остается один.")
             break
         else:
             print("\nНажата неверная кнопка, повторите попытку!")
+
+        if not pet.alive:
+            print(f"\n{pet.name} умер! Игра окончена.")
+            break
+        pet.wait()
+
 
 if __name__ == '__main__':
     main()
