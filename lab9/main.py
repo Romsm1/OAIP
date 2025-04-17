@@ -24,7 +24,15 @@ def main():
     print("\nСоздание кнопки:")
     text = input("Введите текст для кнопки (по умолчанию 'Нажми меня'): ") or "Нажми меня"
     color = input("Введите цвет кнопки (по умолчанию 'green'): ") or "green"
-    size = input("Введите размер кнопки (по умолчанию 'medium'): ") or "medium"
+
+    # Ввод размера в пикселях
+    try:
+        width = int(input("Введите ширину кнопки в пикселях (по умолчанию 100): ") or 100)
+        height = int(input("Введите высоту кнопки в пикселях (по умолчанию 50): ") or 50)
+    except ValueError:
+        print("Неверный формат размера. Будут использованы значения по умолчанию (100x50).")
+        width, height = 100, 50
+
     shape = input("Введите форму кнопки (по умолчанию 'oval'): ") or "oval"
 
     # Ввод координат
@@ -35,9 +43,10 @@ def main():
         print("Неверный формат координат. Будут использованы значения по умолчанию (0, 0).")
         x, y = 0, 0
 
-    test_button = Button(text=text, color=color, size=size, shape=shape, x=x, y=y)
+    test_button = Button(text=text, color=color, width=width, height=height, shape=shape, x=x, y=y)
     test_button.show_properties()
 
+    # Действия с кнопкой
     test_button.press()
     test_button.release()
 
@@ -52,6 +61,13 @@ def main():
     clicks = int(input("Сколько раз нажать на кнопку?: "))
     test_button.click_multiple_times(clicks)
     print(f"Кнопка: '{test_button.text}' была нажата {test_button.click_count} раз")
+
+    # Интерактивное редактирование кнопки
+    edit_choice = input("Хотите изменить свойства кнопки? (да/нет): ").lower()
+    if edit_choice == "да":
+        test_button.edit_properties_interactive()
+        print("Обновленные свойства кнопки:")
+        test_button.show_properties()
 
     # ПИТОМЕЦ
     pet_name = input("Введите имя для вашего питомца: ")
