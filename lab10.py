@@ -20,24 +20,48 @@ class Material:
         return f"Материал: {self.__name}"
 
 
-class Wood(Material):
+class Wood:
     def __init__(self):
-        super().__init__("Дерево")
+        self.__name = "Дерево"
+
+    def get_name(self):
+        return self.__name
+
+    def info(self):
+        return f"Материал: {self.__name}"
 
 
-class Stone(Material):
+class Stone:
     def __init__(self):
-        super().__init__("Камень")
+        self.__name = "Камень"
+
+    def get_name(self):
+        return self.__name
+
+    def info(self):
+        return f"Материал: {self.__name}"
 
 
-class Iron(Material):
+class Iron:
     def __init__(self):
-        super().__init__("Железо")
+        self.__name = "Железо"
+
+    def get_name(self):
+        return self.__name
+
+    def info(self):
+        return f"Материал: {self.__name}"
 
 
-class Diamond(Material):
+class Diamond:
     def __init__(self):
-        super().__init__("Алмаз")
+        self.__name = "Алмаз"
+
+    def get_name(self):
+        return self.__name
+
+    def info(self):
+        return f"Материал: {self.__name}"
 
 
 class Sword:
@@ -79,25 +103,27 @@ class Pickaxe:
 
 
 class EnchantedSword:
-    def __init__(self, sword_material, sword_durability, sword_damage):
-        self.__sword_material = sword_material
-        self.__sword_durability = sword_durability
-        self.__sword_damage = sword_damage
-        self.__enchantment = "Острота V"
+    def __init__(self, material_name, durability, damage):
+        self.__material_name = material_name
+        self.__durability = durability
+        self.__base_damage = damage
+        self.__enchantment = "Острота"
+        self.__enchanted_damage = damage + 3  # Увеличиваем урон на 3
 
     def info(self):
-        return f"Меч из {self.__sword_material}, Прочность: {self.__sword_durability}, Урон: {self.__sword_damage}, Защита: {self.__enchantment}"
+        return f"Магический Меч из {self.__material_name}, Прочность: {self.__durability}, Базовый урон: {self.__base_damage}, Защита: {self.__enchantment}, Новый урон: {self.__enchanted_damage}"
 
 
 class EnchantedPickaxe:
-    def __init__(self, pickaxe_material, pickaxe_durability, pickaxe_efficiency):
-        self.__pickaxe_material = pickaxe_material
-        self.__pickaxe_durability = pickaxe_durability
-        self.__pickaxe_efficiency = pickaxe_efficiency
-        self.__enchantment = "Шелковое касание III"
+    def __init__(self, material_name, durability, efficiency):
+        self.__material_name = material_name
+        self.__durability = durability
+        self.__base_efficiency = efficiency
+        self.__enchantment = "Efficiency"
+        self.__enchanted_efficiency = efficiency + 2  # Увеличиваем эффективность на 2
 
     def info(self):
-        return f"Кирка из {self.__pickaxe_material}, Прочность: {self.__pickaxe_durability}, Эффективность: {self.__pickaxe_efficiency}, Защита: {self.__enchantment}"
+        return f"Магическая Кирка из {self.__material_name}, Прочность: {self.__durability}, Базовая эффективность: {self.__base_efficiency}, Защита: {self.__enchantment}, Новая эффективность: {self.__enchanted_efficiency}"
 
 
 class Forge:
