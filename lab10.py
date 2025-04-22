@@ -1,85 +1,141 @@
 class Stick:
     def __init__(self):
-        self.name = "Палка"
+        self.__name = "Палка"
 
     def info(self):
-        return f"Материал: {self.name}"
+        return f"Материал: {self.__name}"
 
 
-class Дерево:
+class Wood:
     def __init__(self):
-        self.name = "Дерево"
+        self.__name = "Дерево"
+
+    def get_name(self):
+        return self.__name
 
     def info(self):
-        return f"Материал: {self.name}"
+        return f"Материал: {self.__name}"
 
 
-class Камень:
+class Stone:
     def __init__(self):
-        self.name = "Камень"
+        self.__name = "Камень"
+
+    def get_name(self):
+        return self.__name
 
     def info(self):
-        return f"Материал: {self.name}"
+        return f"Материал: {self.__name}"
 
 
-class Железо:
+class Iron:
     def __init__(self):
-        self.name = "Железо"
+        self.__name = "Железо"
+
+    def get_name(self):
+        return self.__name
 
     def info(self):
-        return f"Материал: {self.name}"
+        return f"Материал: {self.__name}"
 
 
-class Алмаз:
+class Diamond:
     def __init__(self):
-        self.name = "Алмаз"
+        self.__name = "Алмаз"
+
+    def get_name(self):
+        return self.__name
 
     def info(self):
-        return f"Материал: {self.name}"
+        return f"Материал: {self.__name}"
 
 
 class Sword:
-    def __init__(self, material, durability, damage):
-        self.material = material
-        self.durability = durability
-        self.damage = damage
+    def __init__(self, material_name, durability, damage):
+        self.__material_name = material_name
+        self.__durability = durability
+        self.__damage = damage
+
+    def get_material_name(self):
+        return self.__material_name
+
+    def get_durability(self):
+        return self.__durability
+
+    def get_damage(self):
+        return self.__damage
 
     def info(self):
-        return f"Меч из {self.material.name}, Прочность: {self.durability}, Урон: {self.damage}"
+        return f"Меч из {self.__material_name}, Прочность: {self.__durability}, Урон: {self.__damage}"
 
 
 class Pickaxe:
-    def __init__(self, material, durability, efficiency):
-        self.material = material
-        self.durability = durability
-        self.efficiency = efficiency
+    def __init__(self, material_name, durability, efficiency):
+        self.__material_name = material_name
+        self.__durability = durability
+        self.__efficiency = efficiency
+
+    def get_material_name(self):
+        return self.__material_name
+
+    def get_durability(self):
+        return self.__durability
+
+    def get_efficiency(self):
+        return self.__efficiency
 
     def info(self):
-        return f"Кирка из {self.material.name}, Прочность: {self.durability}, Эффективность: {self.efficiency}"
+        return f"Кирка из {self.__material_name}, Прочность: {self.__durability}, Эффективность: {self.__efficiency}"
 
 
-def craft_sword(stick_count, material_count, material):
-    if stick_count >= 1 and material_count >= 2:
-        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
-        damage = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}[material.name]
-        return Sword(material, durability, damage)
-    else:
-        return "Недостаточно материалов!"
+class EnchantedSword:
+    def __init__(self, sword_material, sword_durability, sword_damage):
+        self.__sword_material = sword_material
+        self.__sword_durability = sword_durability
+        self.__sword_damage = sword_damage
+        self.__enchantment = "Острота V"
+
+    def info(self):
+        return f"Меч из {self.__sword_material}, Прочность: {self.__sword_durability}, Урон: {self.__sword_damage}, Защита: {self.__enchantment}"
 
 
-def craft_pickaxe(stick_count, material_count, material):
-    if stick_count >= 2 and material_count >= 3:
-        durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.name]
-        efficiency = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}[material.name]
-        return Pickaxe(material, durability, efficiency)
-    else:
-        return "Недостаточно материалов!"
+class EnchantedPickaxe:
+    def __init__(self, pickaxe_material, pickaxe_durability, pickaxe_efficiency):
+        self.__pickaxe_material = pickaxe_material
+        self.__pickaxe_durability = pickaxe_durability
+        self.__pickaxe_efficiency = pickaxe_efficiency
+        self.__enchantment = "Шелковое касание III"
 
+    def info(self):
+        return f"Кирка из {self.__pickaxe_material}, Прочность: {self.__pickaxe_durability}, Эффективность: {self.__pickaxe_efficiency}, Защита: {self.__enchantment}"
+
+
+class Forge:
+    def craft_sword(self, stick_count, material_count, material):
+        if stick_count >= 1 and material_count >= 2:
+            durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.get_name()]
+            damage = {"Дерево": 4, "Камень": 5, "Железо": 6, "Алмаз": 7}[material.get_name()]
+            return Sword(material.get_name(), durability, damage)
+        else:
+            return "Недостаточно материалов!"
+
+    def craft_pickaxe(self, stick_count, material_count, material):
+        if stick_count >= 2 and material_count >= 3:
+            durability = {"Дерево": 59, "Камень": 131, "Железо": 250, "Алмаз": 1561}[material.get_name()]
+            efficiency = {"Дерево": 2, "Камень": 4, "Железо": 6, "Алмаз": 8}[material.get_name()]
+            return Pickaxe(material.get_name(), durability, efficiency)
+        else:
+            return "Недостаточно материалов!"
+
+
+# Главный цикл программы
+forge = Forge()
 
 while True:
     item_type = input("Создать меч или кирку? (Меч/Кирка/Выход): ")
     if item_type == "Выход":
         break
+
     material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ")
     stick_count = int(input("Введите количество палок: "))
     material_count = int(input(f"Введите количество {material_name}: "))
@@ -88,12 +144,12 @@ while True:
         print("Неверный материал!")
         continue
 
-    material = globals()[material_name]()
+    material = globals()[material_name]()  # Создаем объект материала
 
     if item_type == "Меч":
-        item = craft_sword(stick_count, material_count, material)
+        item = forge.craft_sword(stick_count, material_count, material)
     elif item_type == "Кирка":
-        item = craft_pickaxe(stick_count, material_count, material)
+        item = forge.craft_pickaxe(stick_count, material_count, material)
     else:
         print("Неверный выбор!")
         continue
@@ -101,6 +157,21 @@ while True:
     if isinstance(item, str):
         print(item)
     else:
-        print(item.info())
-
-
+        # Добавляем возможность создания зачарованного оружия
+        enchant = input("Хотите зачаровать? (Да/Нет): ")
+        if enchant.lower() == "да":
+            if isinstance(item, Sword):
+                enchanted_item = EnchantedSword(
+                    item.get_material_name(),
+                    item.get_durability(),
+                    item.get_damage()
+                )
+            elif isinstance(item, Pickaxe):
+                enchanted_item = EnchantedPickaxe(
+                    item.get_material_name(),
+                    item.get_durability(),
+                    item.get_efficiency()
+                )
+            print(enchanted_item.info())
+        else:
+            print(item.info())
