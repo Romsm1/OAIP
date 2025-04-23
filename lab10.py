@@ -9,17 +9,6 @@ class Stick:
         return f"Материал: {self.__name}"
 
 
-class Material:
-    def __init__(self, name):
-        self.__name = name
-
-    def get_name(self):
-        return self.__name
-
-    def info(self):
-        return f"Материал: {self.__name}"
-
-
 class Wood:
     def __init__(self):
         self.__name = "Дерево"
@@ -108,10 +97,10 @@ class EnchantedSword:
         self.__durability = durability
         self.__base_damage = damage
         self.__enchantment = "Острота"
-        self.__enchanted_damage = damage + 3  # Увеличиваем урон на 3
+        self.__enchanted_damage = damage + 3
 
     def info(self):
-        return f"Магический Меч из {self.__material_name}, Прочность: {self.__durability}, Базовый урон: {self.__base_damage}, Защита: {self.__enchantment}, Новый урон: {self.__enchanted_damage}"
+        return f"Зачарованный меч из {self.__material_name}, Прочность: {self.__durability}, Базовый урон: {self.__base_damage}, Зачарование: {self.__enchantment}, Новый урон: {self.__enchanted_damage}"
 
 
 class EnchantedPickaxe:
@@ -120,10 +109,10 @@ class EnchantedPickaxe:
         self.__durability = durability
         self.__base_efficiency = efficiency
         self.__enchantment = "Efficiency"
-        self.__enchanted_efficiency = efficiency + 2  # Увеличиваем эффективность на 2
+        self.__enchanted_efficiency = efficiency + 2
 
     def info(self):
-        return f"Магическая Кирка из {self.__material_name}, Прочность: {self.__durability}, Базовая эффективность: {self.__base_efficiency}, Защита: {self.__enchantment}, Новая эффективность: {self.__enchanted_efficiency}"
+        return f"Зачарованная кирка из {self.__material_name}, Прочность: {self.__durability}, Базовая эффективность: {self.__base_efficiency}, Защита: {self.__enchantment}, Новая эффективность: {self.__enchanted_efficiency}"
 
 
 class Forge:
@@ -150,8 +139,45 @@ class Forge:
             return "Недостаточно материалов!"
 
 
-# Главный цикл программы
+class Anvil:
+    def upgrade(self, item, material):
+        material_name = material.get_name()
+        if isinstance(item, Sword):
+            item._Sword__durability += {"Дерево": 5, "Камень": 10, "Железо": 100, "Алмаз": 300}.get(material_name)
+            item._Sword__damage += {"Дерево": 1, "Камень": 2, "Железо": 3, "Алмаз": 4}.get(material_name)
+        elif isinstance(item, Pickaxe):
+            item._Pickaxe__durability += {"Дерево": 5, "Камень": 10, "Железо": 100, "Алмаз": 300}.get(material_name)
+            item._Pickaxe__efficiency += {"Дерево": 1, "Камень": 2, "Железо": 3, "Алмаз": 4}.get(material_name)
+        else:
+            return "Недопустипый тип предмета!"
+        return item
+
+    def __add__(self, other):
+        if isinstance(other, tuple) and len(other) == 2:
+            item, material = other
+            self.upgrade(item, material)
+            return item
+
+
+class Workbench:
+    def disassemble(self, item):
+        if isinstance(item, Sword):
+            material_name = item.get_material_name()
+            return material_name
+        elif isinstance(item, Pickaxe):
+            material_name = item.get_material_name()
+            return material_name
+        else:
+            return "Недопустимый тип предмета!"
+
+    def __add__(self, other):
+        if isinstance(other, (Sword, Pickaxe)):
+            return self.disassemble(other)
+
+
 forge = Forge()
+anvil = Anvil()
+workbench = Workbench()
 
 materials = {
     "Дерево": Wood(),
@@ -161,11 +187,11 @@ materials = {
 }
 
 while True:
-    item_type = input("Создать меч или кирку? (Меч/Кирка/Выход): ").strip().capitalize()
+    item_type = input("Создать меч или кирку? (Меч/Кирка/Выход): ")
     if item_type == "Выход":
         break
 
-    material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ").strip().capitalize()
+    material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ")
     if material_name not in materials:
         print("Неверный материал!")
         continue
@@ -186,8 +212,8 @@ while True:
     if isinstance(item, str):
         print(item)
     else:
-        enchant = input("Хотите зачаровать? (Да/Нет): ").strip().lower()
-        if enchant == "да":
+        enchant = input("Хотите зачаровать? (Да/Нет): ")
+        if enchant == "Да":
             if isinstance(item, Sword):
                 enchanted_item = EnchantedSword(
                     item.get_material_name(),
@@ -203,3 +229,22 @@ while True:
             print(enchanted_item.info())
         else:
             print(item.info())
+
+        # Улучшение с помощью наковальни
+        upgrade_choice = input("Хотите улучшить предмет на наковальне? (Да/Нет): ")
+        if upgrade_choice == "Да":
+            upgrade_material_name = input("Выберите материал для улучшения (Дерево, Камень, Железо, Алмаз): ")
+            if upgrade_material_name not in materials:
+                print("Неверный материал!")
+                continue
+
+            upgrade_material = materials.get(upgrade_material_name)
+            upgraded_item = anvil + (item, upgrade_material)
+            print("Предмет улучшен!")
+            print(upgraded_item.info())
+
+        # Разборка предмета
+        disassemble_choice = input("Хотите разобрать предмет? (Да/Нет): ")
+        if disassemble_choice == "Да":
+            material = workbench + item
+            print(f"Предмет разобран. Ресурсы которые были получены: {material}")
