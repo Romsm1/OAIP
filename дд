@@ -1,6 +1,31 @@
+class Disassembler:
+    def __init__(self):
+        pass
+
+    def disassemble(self, item):
+        """Разборка предмета на материал."""
+        if isinstance(item, Sword):
+            material_name = item.get_material_name()
+            return Material(material_name)
+
+        elif isinstance(item, Pickaxe):
+            material_name = item.get_material_name()
+            return Material(material_name)
+
+        else:
+            raise ValueError("Недопустимый тип предмета!")
+
+    def __add__(self, other):
+        """Переопределение оператора сложения."""
+        if isinstance(other, (Sword, Pickaxe)):
+            return self.disassemble(other)
+        raise ValueError("Используйте формат: disassembler + item")
+
+
 # Главный цикл программы
 forge = Forge()
 anvil = Anvil()
+disassembler = Disassembler()
 
 materials = {
     "Дерево": Wood(),
@@ -65,3 +90,7 @@ while True:
             upgraded_item = anvil + (item, upgrade_material)
             print("Предмет улучшен!")
             print(upgraded_item.info())
+
+        # Разборка предмета
+        disassemble_choice = input("Хотите разобрать предмет? (Да/Нет): ").strip().lower()
+        if disassemble_choice == "
