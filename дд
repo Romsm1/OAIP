@@ -1,0 +1,67 @@
+# Главный цикл программы
+forge = Forge()
+anvil = Anvil()
+
+materials = {
+    "Дерево": Wood(),
+    "Камень": Stone(),
+    "Железо": Iron(),
+    "Алмаз": Diamond()
+}
+
+while True:
+    item_type = input("Создать меч или кирку? (Меч/Кирка/Выход): ").strip().capitalize()
+    if item_type == "Выход":
+        break
+
+    material_name = input("Выберите материал (Дерево, Камень, Железо, Алмаз): ").strip().capitalize()
+    if material_name not in materials:
+        print("Неверный материал!")
+        continue
+
+    stick_count = int(input("Введите количество палок: "))
+    material_count = int(input(f"Введите количество {material_name}: "))
+
+    material = materials.get(material_name)
+
+    if item_type == "Меч":
+        item = forge.craft_sword(stick_count, material_count, material)
+    elif item_type == "Кирка":
+        item = forge.craft_pickaxe(stick_count, material_count, material)
+    else:
+        print("Неверный выбор!")
+        continue
+
+    if isinstance(item, str):
+        print(item)
+    else:
+        enchant = input("Хотите зачаровать? (Да/Нет): ").strip().lower()
+        if enchant == "да":
+            if isinstance(item, Sword):
+                enchanted_item = EnchantedSword(
+                    item.get_material_name(),
+                    item.get_durability(),
+                    item.get_damage()
+                )
+            elif isinstance(item, Pickaxe):
+                enchanted_item = EnchantedPickaxe(
+                    item.get_material_name(),
+                    item.get_durability(),
+                    item.get_efficiency()
+                )
+            print(enchanted_item.info())
+        else:
+            print(item.info())
+
+        # Улучшение предмета на наковальне
+        upgrade_choice = input("Хотите улучшить предмет на наковальне? (Да/Нет): ").strip().lower()
+        if upgrade_choice == "да":
+            upgrade_material_name = input("Выберите материал для улучшения (Дерево, Камень, Железо, Алмаз): ").strip().capitalize()
+            if upgrade_material_name not in materials:
+                print("Неверный материал!")
+                continue
+
+            upgrade_material = materials.get(upgrade_material_name)
+            upgraded_item = anvil + (item, upgrade_material)
+            print("Предмет улучшен!")
+            print(upgraded_item.info())
