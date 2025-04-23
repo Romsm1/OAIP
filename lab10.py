@@ -143,14 +143,15 @@ class Anvil:
     def upgrade(self, item, material):
         material_name = material.get_name()
         if isinstance(item, Sword):
-            item._Sword__durability += {"Дерево": 5, "Камень": 10, "Железо": 100, "Алмаз": 300}.get(material_name)
-            item._Sword__damage += {"Дерево": 1, "Камень": 2, "Железо": 3, "Алмаз": 4}.get(material_name)
+            new_durability = item.get_durability() + {"Дерево": 10, "Камень": 30, "Железо": 50, "Алмаз": 300}
+            new_damage = item.get_damage() + {"Дерево": 1, "Камень": 2, "Железо": 3, "Алмаз": 4}
+            item.set_durability(new_durability)
+            item.set_damage(new_damage)
         elif isinstance(item, Pickaxe):
-            item._Pickaxe__durability += {"Дерево": 5, "Камень": 10, "Железо": 100, "Алмаз": 300}.get(material_name)
-            item._Pickaxe__efficiency += {"Дерево": 1, "Камень": 2, "Железо": 3, "Алмаз": 4}.get(material_name)
-        else:
-            return "Недопустипый тип предмета!"
-        return item
+            new_durability = item.get_durability() + {"Дерево": 10, "Камень": 30, "Железо": 50, "Алмаз": 300}
+            new_efficiency = item.get_efficiency() + {"Дерево": 2, "Камень": 3, "Железо": 4, "Алмаз": 5}
+            item.set_durability(new_durability)
+            item.set_damage(new_damage)
 
     def __add__(self, other):
         if isinstance(other, tuple) and len(other) == 2:
