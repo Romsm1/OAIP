@@ -1,25 +1,24 @@
-print("Введите n (мин. сумма баллов) и m (мин. балл по каждому предмету):")
-n, m = map(int, input().split())
+import csv
 
-print("Теперь вводите данные абитуриентов, например: Иванов Петр 70 80 90")
+with open('file.csv', encoding='utf-8') as f:
+    items = [[row[0], int(row[1])] for row in csv.reader(f, delimiter=';')]
 
-with open('exam.csv', 'w', encoding='utf-8') as out_file:
-    out_file.write('Фамилия;имя;результат 1;результат 2;результат 3;сумма\n')
+money = 1000
+basket = []
+items.sort(key=lambda x: x[1])  # Сортируем от дешёвых к дорогим
 
-    while True:
-        try:
-            line = input()
-            if not line.strip():
-                break  
-            
-            data = line.split()
-            surname, name = data[0], data[1]
-            scores = list(map(int, data[2:] ))
-            total = sum(scores)
+for name, price in items:
+    # Максимум 10 каждого товара
+    can_buy = min(10 - basket.count(name), money // price)
+    if can_buy > 0:
+        basket += [name] * can_buy
+        money -= price * can_buy
 
-            if total >= n and all(s >= m for s in scores):
-                result_line = f'{surname};{name};{scores[0]};{scores[1]};{scores[2]};{total}\n'
-                out_file.write(result_line)
+    # Покупаем другие товары, если остались деньги
+    for other_name, other_price in items:
+        if other_name != name and other_price <= money:
+            basket.append(other_name)
+            money -= other_price
 
-        except (ValueError, IndexError):
-            break
+print(', '.join(basket) if basket else 'error')
+print(f"Остаток: {money} руб.")
